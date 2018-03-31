@@ -1,0 +1,30 @@
+#include <stdio.h>
+ 
+int main()
+{
+    int n, i, max;
+    int num[100000]; // 수열 저장
+    int s[100000]; // 배열 s[i]는 num[0] ~ num[i] 합계 저장
+    scanf("%d", &n);
+    for(i = 1; i <= n; i++)
+    {
+        scanf("%d", &num[i]);
+    }
+    for(i = 1; i <= n; i++)
+    {
+        if(s[i - 1] + num[i] > num[i])
+        {
+            s[i] = s[i - 1] + num[i];
+        }
+        else
+        {
+            s[i] = num[i];
+        }
+    }
+    max = s[1];
+    for(i = 2; i <= n; i++)
+    {
+        if(max < s[i]) max = s[i];
+    }
+    printf("%d\n", max);
+}
