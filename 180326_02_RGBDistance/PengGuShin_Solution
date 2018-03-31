@@ -1,0 +1,47 @@
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+
+using namespace std;
+
+int main() {
+	int n, m;
+	cin >> n;
+	int **color = new int*[3];
+	for (int i = 0; i < 3; i++) {
+		color[i] = new int[n];
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < 3; j++) {
+			cin >> color[j][i];
+		}
+	}
+	int *R = new int[n];
+	int *G = new int[n];
+	int *B = new int[n];
+	memset(R, 0, sizeof(int)*n);
+	memset(G, 0, sizeof(int)*n);
+	memset(B, 0, sizeof(int)*n);
+	if (n == 0) {
+		m = min(color[0][0], color[1][0]);
+		m = min(m, color[2][0]);
+	}
+	else {
+		R[0] = color[0][0];
+		G[0] = color[1][0];
+		B[0] = color[2][0];
+		for (int i = 1; i < n; i++) {
+			R[i] = min(G[i - 1], B[i - 1]) + color[0][i];
+			G[i] = min(R[i - 1], B[i - 1]) + color[1][i];
+			B[i] = min(R[i - 1], G[i - 1]) + color[2][i];
+		}
+		m = min(R[n - 1], G[n - 1]);
+		m = min(m, B[n - 1]);
+	}
+	cout << m;
+	delete[] R, G, B;
+	for (int i = 0; i < 3; i++) {
+		delete[] color[i];
+	}
+	delete[] color;
+}
