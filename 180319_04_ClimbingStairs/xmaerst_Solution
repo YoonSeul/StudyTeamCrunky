@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int n;
+int stair[300]; // stair 배열은 문제에서 주어지는 점수를 저장한 배열
+int dp[300]; // dp 배열은 i번째 계단까지의 최대값을 저장해놓는 배열
+int Max(int a, int b)
+{
+    return a > b ? a : b;
+} 
+int main()
+{
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d", &stair[i]);
+    }
+    // i = 0 ~ n - 1 까지 돌리면 dp 배열의 n - 1번째 배열에는 최대값이 저장되는 것을 알 수 있다.
+    dp[0] = stair[0]; // 이 경우는 1칸을 갔을 경우
+    dp[1] = Max(stair[0]+stair[1],stair[1]); // 이 경우는 2칸을 갔을 경우
+    dp[2] = Max(stair[0]+stair[2],stair[1]+stair[2]); // 이 경우는 3칸을 갔을 경우 
+    for(int i = 3; i < n; i++)
+    {
+        dp[i] = Max(dp[i - 2] + stair[i], stair[i - 1] + stair[i] + dp[i - 3]);
+    }
+    printf("%d\n", dp[n - 1]);
+    return 0;
+}
