@@ -1,0 +1,45 @@
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+
+using namespace std;
+
+class Check {
+private:
+	int n;
+	int *D = new int[1000001];
+public:
+	void setNum() {
+		cin >> n;
+		memset(D, 0, sizeof(int)*(n + 1));
+	}
+
+	void getNum() {
+		D[1] = 0;
+		for (int i = 2; i <= n; i++) {
+			D[i] = D[i - 1] + 1;
+			if (i % 2 == 0) {
+				D[i] = min(D[i / 2] + 1, D[i]);
+			}
+			if (i % 3 == 0) {
+				D[i] = min(D[i / 3] + 1, D[i]);
+			}
+		}
+	}
+	void print() {
+		cout << D[n];
+	}
+
+	void del() {
+		delete [] D;
+	}
+};
+
+int main() {
+	Check C;
+	C.setNum();
+	C.getNum();
+	C.print();
+	C.del();
+	return 0;
+}
