@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class ContinuityAdd {
+	static int N[];
+	public static void main(String[] args) {
+		int n;
+	
+		Scanner scanner = new Scanner(System.in);
+		n = scanner.nextInt();		// n 입력 받음
+		
+		while(n < 1 || n > Math.pow(10, 5)) {
+			System.out.print("다시 입력해주세요:");
+			n = scanner.nextInt();
+		}
+		
+		N = new int[n];				// 배열에 n개만큼 숫자 받음
+		for(int i=0; i<n; i++) {
+			N[i] = scanner.nextInt();
+			while(N[i] < -1000 || N[i] > 1000) {
+				System.out.print("다시 입력해주세요:");
+				N[i] = scanner.nextInt();
+			}
+		}
+		int maxAdd = ContinuousAdd(n);
+		System.out.println(maxAdd);
+	}
+	
+	public static int ContinuousAdd(int n) {
+		int max;
+		int partialAdd[];
+		partialAdd = new int[n];
+		
+		max = N[0];
+		partialAdd[0] = N[0];
+		
+		for(int i=1; i<n; i++) {
+			partialAdd[i] = Math.max(N[i], partialAdd[i-1] + N[i]);
+			if(partialAdd[i] > max) {
+				max = partialAdd[i];
+			}
+		}
+		return max;
+	}
+}
