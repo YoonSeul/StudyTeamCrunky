@@ -1,0 +1,46 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Add_OneTwoThree {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int T;			// 테스트 갯수
+		Scanner scanner = new Scanner(System.in);
+		T = scanner.nextInt();
+		
+		int test_case[];	// 테스트할 정수 받는 배열
+		test_case = new int[T];
+		
+		Arrays.fill(test_case, -1); 	// 모든 배열값 -1로 초기화 -> 미리 레지스터로 옯겨주기위한 작업
+		for(int i=0; i<T; i++) {
+			while(test_case[i] <= 0 || test_case[i] >= 11) {
+				test_case[i] = scanner.nextInt();
+			}
+		}
+		
+		int max;
+		for(int i=0; i<T; i++) {
+			max = AddingOneTwoThree(test_case[i]);
+			System.out.println(max);
+		}
+	}
+	
+	public static int AddingOneTwoThree(int n) {
+		int Max[];
+		Max = new int[n];
+		for(int i=0; i<n; i++) {
+			if(i == 0) {
+				Max[0] = 1;
+			}else if(i == 1) {
+				Max[1] = 2;
+			}else if(i == 2) {
+				Max[2] = 4;
+			}else {
+				Max[i] = Max[i-1] + Max[i-2] + Max[i-3];
+			}	
+		}
+		
+		return Max[n-1];
+	}
+}
