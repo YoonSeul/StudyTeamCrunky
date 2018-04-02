@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class MakingOne {
+	public static void main(String[] args) {
+		int num;	// 입력 받는 변수
+		int count;	// 최소횟수세는 변수
+		
+		Scanner scanner = new Scanner(System.in);
+		num = scanner.nextInt();
+		
+		while(num < 1 || num > Math.pow(10, 6)) {
+			System.out.print("다시 입력해주세요:");
+			num = scanner.nextInt();
+		}
+		
+		count = ToOne(num);
+		System.out.println(count);
+		
+	}
+	
+	public static int ToOne(int num) {
+		int M[];
+		M = new int[num+1];
+		
+		for(int i=1;i<=num; i++) {
+			if(i==1) {
+				M[1] = 0;
+			}else {
+				if(i%3 == 0) {
+					M[i] = Math.min(M[i-1]+1, M[i/3] + 1);
+				}else if(i%2 == 0) {
+					M[i] = Math.min(M[i-1]+1, M[i/2] + 1);
+				}else {
+					M[i] = M[i-1] + 1;
+				}
+			}
+		}
+		return M[num];
+	}
+}
