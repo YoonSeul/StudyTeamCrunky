@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class TriangleNumbers {
+
+	public static void main(String[] args) {
+		
+		int n;
+		Scanner scanner = new Scanner(System.in);
+		n = scanner.nextInt();
+		
+		while(n<1 || n>500) {
+			n = scanner.nextInt();
+		}
+		
+		int T[][];
+		T = new int[n][n];
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<=i; j++) {
+				T[i][j] = scanner.nextInt();
+			}
+		}
+		
+		int max = 0;
+		int Add[][];
+		Add = new int[n][n];
+		Add[0][0] = T[0][0];
+		for(int i=1; i<n; i++) {
+			for(int j=0; j<=i; j++) {
+				if(j==0) {
+					Add[i][j] = Add[i-1][j] + T[i][j];
+					max = Add[i][j];
+				}else if(j==i) {
+					Add[i][j] = Add[i-1][j-1] + T[i][j];
+				}else {
+					Add[i][j] = Math.max(Add[i-1][j-1] + T[i][j], Add[i-1][j] + T[i][j]);
+				}
+				
+				if(Add[i][j] > max) {
+					max = Add[i][j];
+				}
+			}
+		}
+		
+		System.out.println(max);
+	}
+
+}
