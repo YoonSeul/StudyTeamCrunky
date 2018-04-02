@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class ClimbingStairs {
+	public static void main(String[] args) {
+		int stair_num;
+		int stair[];
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		stair_num = scanner.nextInt();
+		while(stair_num <= 0 || stair_num >300) {
+			System.out.print("다시 입력해주세요:");
+			stair_num = scanner.nextInt();
+		}
+		
+		stair = new int[stair_num+1];
+		for(int i=1; i<=stair_num; i++) {
+			stair[i] = scanner.nextInt();
+			while(stair[i] <= 0 || stair[i] > 10000) {
+				System.out.print("다시 입력해주세요:");
+				stair[i] = scanner.nextInt();
+			}
+		}
+		
+		int max = climbingStairs(stair, stair_num);
+		System.out.println(max);
+	}
+	
+	public static int climbingStairs(int stair[], int stair_num) {
+		int maxAdd = 0;
+		int partialAdd[][];
+		
+		partialAdd = new int[stair_num+1][2];
+		for(int i=1; i<=stair_num; i++) {
+			if(i==1) {
+				partialAdd[i][0] = stair[i];
+				maxAdd = stair[i];
+			}else if(i==2) {
+				partialAdd[i][0] = stair[i-1] + stair[i];
+				partialAdd[i][1] = stair[i];
+				maxAdd = partialAdd[i][0];
+			}else {
+				partialAdd[i][0] = stair[i] + partialAdd[i-1][1];
+				partialAdd[i][1] = stair[i] + Math.max(partialAdd[i-2][0], partialAdd[i-2][1]);
+				maxAdd = Math.max(partialAdd[i][0], partialAdd[i][1]);
+			}
+		}
+		return maxAdd;
+	}
+}
