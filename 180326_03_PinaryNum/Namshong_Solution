@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class PinaryNumber {
+	
+	public static void main(String[] args) {
+		int N;
+		Scanner scanner = new Scanner(System.in);
+		N = scanner.nextInt();
+		
+		while(N < 1 || N > 90) {
+			N = scanner.nextInt();
+		}
+		
+		long P[];
+		P = new long[N+1];
+		for(int i=1; i<=N; i++) {
+			if(i==1 || i==2) {
+				P[i] = 1;
+			}else {
+				P[i] = P[i-1] + P[i-2];
+			}
+		}
+		
+		System.out.println(P[N]);
+	}
+	
+}
