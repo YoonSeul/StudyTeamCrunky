@@ -1,0 +1,24 @@
+#include <stdio.h>
+#define max(a, b) (a > b ? a : b)
+
+int main()
+{
+	int n;
+	int wine[10001]; // wine 배열은 문제에서 주어지는 포도주 잔을 저장한 배열
+	int dp[10001] = { 0 }; // dp 배열은 i번째 포도주 잔까지의 최대값을 저장해놓는 배열
+	scanf("%d", &n);
+	for(int i = 1; i <= n; i++)
+	{
+		scanf("%d", &wine[i]);
+	}
+	// i = 1 ~ n 까지 돌리면 dp 배열의 n번째 배열에는 최대값이 저장되는 것을 알 수 있다.
+	dp[1] = wine[1]; // 1번째 포도주 잔의 최대값 
+	dp[2] = wine[1] + wine[2]; // 2번째 포도주 잔의 최대값
+	for(int i = 3; i <= n; i++)
+	{
+		dp[i] = max(dp[i - 2] + wine[i], dp[i - 3] + wine[i - 1] + wine[i]);
+		dp[i] = max(dp[i - 1], dp[i]);
+	}
+	printf("%d\n", dp[n]);
+	return 0;
+}
