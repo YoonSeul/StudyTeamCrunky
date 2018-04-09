@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class MakingBridge {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int test_case;
+        long result;
+        Scanner scanner = new Scanner(System.in);
+        
+        test_case = scanner.nextInt();
+        
+        int N[], M[];
+        N = new int[test_case];
+        M = new int[test_case];
+        
+        for(int i=0; i<test_case; i++){
+            while(N[i]<=0 || N[i]>M[i] || M[i]>=30){
+                N[i] = scanner.nextInt();
+                M[i] = scanner.nextInt();
+            }
+        }
+        
+        for(int i=0; i<test_case; i++) {
+        	result = Combination(N[i],M[i]);
+        	System.out.println(result);
+        }
+        
+	}
+	
+	public static int Combination(int n, int m){
+		int [][]C = new int[m+1][m+1];
+		for(int i=1; i<=m; i++) {
+			for(int j=0; j<=n; j++) {
+				if(j==0) {
+					C[i][j] = 1;
+				}else if(i==j) {
+					C[i][j] = 1;
+				}else {
+					C[i][j] = C[i-1][j-1] + C[i-1][j];
+				}
+			}
+		}
+		
+		return C[m][n];
+    }
+}
