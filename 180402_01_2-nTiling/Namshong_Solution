@@ -1,0 +1,30 @@
+import java.util.Scanner;
+import java.math.BigInteger;
+
+public class Tiling {
+
+	public static void main(String[] args) {
+		int n = 0;
+		Scanner scanner = new Scanner(System.in);
+		
+		while(n < 1 || n > 1000) {
+			n = scanner.nextInt();
+		}
+		
+		BigInteger N[];
+		N = new BigInteger[n+1];
+		for(int i=1; i<=n; i++) {
+			if(i==1) {
+				N[i] = new BigInteger("1");
+			}else if(i==2) {
+				N[i] = new BigInteger("2");
+			}else {
+				N[i] = N[i-1].add(N[i-2]);
+			}
+		}
+		
+		BigInteger num = new BigInteger("10007");
+		System.out.println(N[n].remainder(num));
+	}
+
+}
