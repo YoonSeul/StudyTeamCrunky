@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main()
+{
+	int n, k;
+	int coin[100001] = { 0 }; // coin[i]는 i번째 코인의 가치
+	int dp[10001] = { 0 }; // dp[k]는 k원까지 만들 수 있는 경우의 수
+	scanf("%d %d", &n, &k);
+	for(int i = 1; i <= n; i++)
+	{
+		scanf("%d", &coin[i]);
+	}
+	for(int i = 1; i <= n; i++)
+	{
+		dp[0] = 1; // d[0]은 0원을 만드는 경우를 의미하는데, 이는 결국 '아무 동전도 선택하지 않는다'라는 경우의 수를 의미하므로 1가지가 되어, d[0] = 1이 된다.
+		for(int j = coin[i]; j <= k; j++)
+		{
+			dp[j] += dp[j - coin[i]]; // dp[j] = dp[j] + dp[j - coin[i]]
+		}
+	}
+	printf("%d\n", dp[k]);
+	return 0;
+}
