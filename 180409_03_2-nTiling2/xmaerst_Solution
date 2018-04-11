@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+int main()
+{
+	int n;
+	int rec[1001];
+	scanf("%d", &n);
+	rec[1] = 1, rec[2] = 3;
+	for(int i = 3; i <= n; i++)
+	{
+		rec[i] = (rec[i - 1] + rec[i - 2] * 2) % 10007;
+	}
+	printf("%d\n", rec[n]);
+	return 0;
+}
