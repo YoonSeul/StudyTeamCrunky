@@ -1,0 +1,38 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int T, **B, r;
+	cin >> T;
+	int *N = new int[T];
+	int *M = new int[T];
+	for (int i = 0; i < T; i++) {
+		cin >> N[i] >> M[i];
+	}
+	for (int i = 0; i < T; i++) {
+		B = new int*[M[i] + 1];
+		for (int j = 0; j <= M[i]; j++) {
+			B[j] = new int[j + 1];
+			B[j][0] = 1;
+			B[j][j] = 1;
+		}
+		if (N[i] == 1 && M[i] == 1) {
+			r = 1;
+		}
+		else {
+			for (int j = 2; j <= M[i]; j++) {
+				for (int k = 1; k < j; k++) {
+					B[j][k] = B[j - 1][k - 1] + B[j - 1][k];
+				}
+			}
+			r = B[M[i]][N[i]];
+		}
+		cout << r << endl;
+		for (int j = 0; j <= M[i]; j++) {
+			delete[] B[j];
+		}
+		delete[] B;
+	}
+	delete[] N, M;
+}
