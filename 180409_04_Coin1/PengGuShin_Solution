@@ -1,0 +1,27 @@
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+int main() {
+	int n, k;
+	long int r;
+	cin >> n >> k;
+	int *N = new int[n];
+	for (int i = 0; i < n; i++) {
+		cin >> N[i];
+	}
+	long int *M = new long int [k+1];
+	memset(M, 0, sizeof(long int)*(k+1));
+	M[0] = 1;
+	for (int i = 0; i < n; i++) {
+		for (int j = 1; j <= k; j++) {
+			if (j >= N[i]) {
+				M[j] = M[j] + M[j - N[i]];
+			}
+		}
+	}
+	r = M[k];
+	cout << r;
+	delete[] M, N;
+}
