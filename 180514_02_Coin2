@@ -1,0 +1,31 @@
+#include <stdio.h>
+#define min(a, b) (a < b ? a : b)
+
+int main()
+{
+	int n, k;
+	int coin[100001] = { 0 }; // coin[i]는 i번째 코인의 가치
+	int dp[10001] = { 0 }; // dp[k]는 k원까지 만들 수 있는 경우의 수
+	scanf("%d %d", &n, &k);
+	for (int i = 1; i <= n; i++)
+	{
+		scanf("%d", &coin[i]);
+	}
+	for (int i = 1; i <= k; i++)
+	{
+		dp[i] = 100001; // 우선 dp[i]를 최대치로 초기화 한 다음에, 코인의 개수를 초기화 하면서 최소값을 찾음
+	}
+	for (int i = 1; i <= n; i++)
+	{
+		dp[0] = 0; // dp[0] = 0; 을 해줘야 되는지? 안 해줘도 되는지?(하나 안 하나 결과는 똑같은 것 같음, 둘 다 맞았습니다 나옴)
+		           // dp[0] = 0; 을 해줘도 되고, 안 해줘도 된다. 왜냐하면 dp[0] = 0; 이 필요한 이유는 아래 dp[j - coin[i]] 에서 j의 값과 coin[i]의 값이 같을 경우,
+		           // dp[j - coin[i]] 의 값이 dp[0]이 되기 때문에 이를 정의해주기 위해서 필요한 것이기에 dp[0] = 0; 을 해줘도 되고, 안 해줘도 된다.
+		for (int j = coin[i]; j <= k; j++)
+		{
+			dp[j] = min(dp[j], dp[j - coin[i]] + 1);
+		}
+	}
+	if (dp[k] == 100001) dp[k] = -1;
+	printf("%d\n", dp[k]);
+	return 0;
+}
