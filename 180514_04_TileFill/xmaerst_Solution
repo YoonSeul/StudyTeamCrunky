@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main()
+{
+	int N;
+	int tile[31] = { 0 };
+	int dp[31] = { 0 };
+	scanf("%d", &N);
+	tile[0] = 1, tile[2] = 3; dp[0] = 1;
+	for(int i = 4; i <= 30; i += 2)
+	{
+		tile[i] = 2;
+	}
+	for(int i = 2; i <= N; i += 2)
+	{
+		for(int j = 2; j <= i; j += 2)
+		{
+			dp[i] += tile[j] * dp[i - j]; // dp[i] = dp[i] + (tile[j] * dp[i - j])
+		}
+	}
+	printf("%d\n", dp[N]);
+	return 0;
+}
