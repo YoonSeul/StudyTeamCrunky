@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main()
+{
+	int N, M, K;
+	int dp[301][301] = { 0 };
+	int sum[10001] = { 0 };
+	scanf("%d %d", &N, &M);
+	for(int i = 1; i <= N; i++)
+	{
+		for(int j = 1; j <= M; j++)
+		{
+			scanf("%d", &dp[i][j]);
+		}	
+	}
+	int i[10001], j[10001], x[10001], y[10001];
+	scanf("%d", &K);
+	for(int l = 1; l <= K; l++)
+	{
+		scanf("%d %d %d %d", &i[l], &j[l], &x[l], &y[l]);
+		for(int m = i[l]; m <= x[l]; m++)
+		{
+			for(int n = j[l]; n <= y[l]; n++)
+			{
+				sum[l] += dp[m][n];
+			}
+		}
+	}
+	for(int l = 1; l <= K; l++)
+	{
+		printf("%d\n", sum[l]);
+        sum[l] = 0;
+	}
+	return 0;
+}
