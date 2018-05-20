@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int main()
+{
+	int N, M;
+	int dp;
+	scanf("%d %d", &N, &M);
+	dp = (M - 1) + (N - 1) * M; // 즉, dp = N * M - 1
+	printf("%d\n", dp);
+	return 0;
+}
