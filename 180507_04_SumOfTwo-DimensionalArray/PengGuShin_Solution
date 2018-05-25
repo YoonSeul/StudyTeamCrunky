@@ -1,0 +1,43 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int N, M, k, x;
+	cin >> N >> M;
+	int **A = new int *[N];
+	for (int i = 0; i < N; i++) {
+		A[i] = new int[M];
+	}
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			cin >> A[i][j];
+		}
+	}
+	cin >> k;
+	int **R = new int *[k];
+	for (int i = 0; i < k; i++) {
+		R[i] = new int[4];
+	}
+	for (int i = 0; i < k; i++) {
+		for (int j = 0; j < 4; j++) {
+			cin >> R[i][j];
+		}
+	}
+	for (int m = 0; m < k; m++) {
+		x = 0;
+		for (int i = R[m][0] - 1; i < R[m][2]; i++) {
+			for (int j = R[m][1] - 1; j < R[m][3]; j++) {
+				x += A[i][j];
+			}
+		}
+		cout << x << endl;
+	}
+	for (int i = 0; i < N; i++) {
+		delete[] A[i];
+	}
+	for (int i = 0; i < k; i++) {
+		delete[] R[i];
+	}
+	delete[] A, R;
+}
