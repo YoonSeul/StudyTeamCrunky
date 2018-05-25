@@ -1,0 +1,56 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+	int T;
+	int **S, **M;
+	cin >> T;
+	int *n = new int[T];
+	int *x = new int[T];
+	S = new int *[2];
+	M = new int *[2];
+	for (int m = 0; m < T; m++) {
+		cin >> n[m];
+		for (int i = 0; i < 2; i++) {
+			S[i] = new int[n[m]];
+			M[i] = new int[n[m]];
+		}
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < n[m]; j++) {
+				cin >> S[i][j];
+			}
+		}
+		if (n[m] == 1) {
+			M[0][0] = S[0][0];
+			M[1][0] = S[1][0];
+			x[m] = max(M[0][0], M[1][0]);
+		}
+		else if (n[m] == 2) {
+			M[0][1] = S[0][1] + S[1][0];
+			M[1][1] = S[0][0] + S[1][1];
+			x[m] = max(M[1][0], M[1][1]);
+		}
+		else {
+			M[0][0] = S[0][0];
+			M[1][0] = S[1][0];
+			M[0][1] = S[0][1] + S[1][0];
+			M[1][1] = S[0][0] + S[1][1];
+			for (int i = 2; i < n[m]; i++) {
+				M[0][i] = max(M[1][i - 2], M[1][i - 1]) + S[0][i];
+				M[0][i] = max(M[0][i], M[0][i - 1]);
+				M[1][i] = max(M[0][i - 2], M[0][i - 1]) + S[1][i];
+				M[1][i] = max(M[1][i], M[1][i - 1]);
+			}
+			x[m] = max(M[0][n[m] - 1], M[1][n[m] - 1]);
+		}
+		for (int i = 0; i < 2; i++) {
+			delete[] S[i], M[i];
+		}
+	}
+	for (int i = 0; i < T; i++) {
+		cout << x[i] << endl;
+	}
+	delete[] S, M, n, x;
+}
