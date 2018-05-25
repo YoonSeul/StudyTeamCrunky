@@ -11,8 +11,7 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		U[i] = new int[10];
 		memset(U[i], 0, sizeof(int) * 10);
-	}
-	
+	}	
 	for (int i = 0; i < 10; i++) {
 		U[0][i] = 1;
 	}
@@ -36,4 +35,8 @@ int main() {
 	}
 	m %= 10007;
 	cout << m;
+	for (int i = 0; i < n; i++) {
+		delete[] U[i];
+	}
+	delete[] U;
 }
