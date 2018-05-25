@@ -1,0 +1,29 @@
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+
+int compare(const void *a, const void *b)
+{
+	return *(int *)a - *(int *)b;
+}
+
+
+int main() {
+	int n;
+	int t = 0;
+	cin >> n;
+	int* P = new int[n];
+	int* M = new int[n];
+	for (int i = 0; i < n; i++) {
+		cin >> P[i];
+	}
+	qsort(P, n, sizeof(int), compare);
+	t = M[0] = P[0];
+	for (int i = 1; i < n; i++) {
+		M[i] = M[i - 1] + P[i];
+		t += M[i];
+	}
+	cout << t;
+	delete[] M, P;
+}
