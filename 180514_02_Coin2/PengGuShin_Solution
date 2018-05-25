@@ -1,0 +1,28 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+	int n, k;
+	cin >> n >> k;
+	int *P = new int[n+1];
+	for (int i = 0; i < n; i++) {
+		cin >> P[i];
+	}
+	int *C = new int[k+1];
+	C[0] = 0;
+	for (int i = 1; i <= k; i++) {
+		C[i] = 10001;
+	}
+	for (int i = 1; i <= n; i++) {
+		for (int j = P[i - 1]; j <= k; j++) {
+			C[j] = min(C[j], C[j - P[i - 1]] + 1);
+		}
+	}
+	if (C[k] == 10001) {
+		C[k] = -1;
+	}
+	cout << C[k];
+	delete[] C, P;
+}
