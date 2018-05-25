@@ -1,0 +1,15 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int n, m;
+	cin >> n >> m;
+	int *C = new int[m];
+	C[0] = n - 1;
+	for (int i = 1; i < m; i++) {
+		C[i] = C[i - 1] + n;
+	}
+	cout << C[m - 1];
+	delete[] C;
+}
