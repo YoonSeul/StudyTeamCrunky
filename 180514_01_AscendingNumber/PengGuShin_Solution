@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+int main() {
+	int n;
+	cin >> n;
+	int m = 0;
+	int **U = new int* [n];
+	for (int i = 0; i < n; i++) {
+		U[i] = new int[10];
+		memset(U[i], 0, sizeof(int) * 10);
+	}
+	
+	for (int i = 0; i < 10; i++) {
+		U[0][i] = 1;
+	}
+	if (n == 1) {
+		for (int i = 0; i < 10; i++) {
+			m += U[0][i];
+		}
+	}
+	else {
+		for (int i = 1; i < n; i++) {
+			for (int j = 0; j < 10; j++) {
+				for (int k = j; k < 10; k++) {
+					U[i][j] += U[i - 1][k];
+					U[i][j] %= 10007;
+				}
+			}
+		}
+		for (int i = 0; i < 10; i++) {
+			m += U[n-1][i];
+		}
+	}
+	m %= 10007;
+	cout << m;
+}
