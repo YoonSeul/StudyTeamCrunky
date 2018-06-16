@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+int main()
+{
+	int N, K, A[11];
+	scanf("%d %d", &N, &K);
+	for(int i = 1; i <= N; i++)
+	{
+		scanf("%d", &A[i]);
+	}
+	int coin = 0;
+	for(int i = N; i >= 1; i--)
+	{
+		coin += K / A[i];
+		K %= A[i];
+	}
+	printf("%d\n", coin);
+	return 0;
+}
