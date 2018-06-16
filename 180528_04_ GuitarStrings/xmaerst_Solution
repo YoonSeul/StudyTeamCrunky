@@ -1,0 +1,34 @@
+#include <stdio.h>
+#define min(a, b) (a < b ? a : b)
+
+int main()
+{
+	int N, M;
+	int package[51] = { 0 }, piece[51] = { 0 };
+	int packagemin, piecemin;
+	scanf("%d %d", &N, &M);
+	for(int i = 0; i < M; i++)
+	{
+		scanf("%d %d", &package[i], &piece[i]);
+	}
+	packagemin = package[0];
+	piecemin = piece[0];
+	for(int i = 1; i < M; i++)
+	{
+		packagemin = min(packagemin, package[i]);
+		piecemin = min(piecemin, piece[i]);
+	}
+	if(piecemin * 6 <= packagemin) // 낱개 6개가 6줄 패키지보다 싸거나 같은 경우
+	{
+		printf("%d\n", piecemin * N);
+	}
+	else if(packagemin < (piecemin * (N % 6))) // 만약 6개보다 적게 살 때, 6줄 패키지가 낱개 개수보다 싼 경우(만약 4개를 살 때, 6줄 패키지가 낱개 4개보다 싼 경우)
+	{
+		printf("%d\n", packagemin * (N / 6 + 1));
+	}
+	else // 그 외의 경우
+	{
+		printf("%d\n", (N / 6) * packagemin + (N % 6) * piecemin);
+	}
+	return 0;
+}
