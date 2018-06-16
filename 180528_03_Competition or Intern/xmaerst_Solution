@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+int main()
+{
+	int N, M, K, team = 0;
+	scanf("%d %d %d", &N, &M, &K);
+	while(1)
+	{
+		if(N + M - K < 3 || N - 2 < 0 || M - 1 < 0)
+		{
+			break;
+		}
+		++team;
+		N -= 2;
+		M -= 1;
+	}
+	printf("%d\n", team);
+	return 0;
+}
