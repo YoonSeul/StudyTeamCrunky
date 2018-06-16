@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int cmp(char *a, char *b)
+{
+	// 내림차순
+	return *a < *b ? 1 : (*a > *b ? -1 : 0);
+	/*
+	위 식이 뜻하는 것은
+	if(*a < *b) return 1;
+	else if(*a > *b) return -1;
+	else return 0;
+	이 식이다.
+	*/
+}
+int main()
+{
+	int len, sum = 0;
+	int count[10] = { 0 };
+	char N[100001] = { 0 };
+	scanf("%s", N);
+	len = strlen(N);
+	for(int i = 0; i < len; i++)
+	{
+		sum += N[i] - '0';
+	}
+	qsort(N, len, 1, cmp); // 1이 뜻하는 것은 sizeof(char)의 값이다.
+	if(N[len - 1] == '0' && sum % 3 == 0)
+	{
+		printf("%s\n", N);
+	}
+	else
+	{
+		printf("-1\n");
+	}
+	return 0;
+}
