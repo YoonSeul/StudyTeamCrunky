@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int main()
+{
+	int N, P[1001];
+	scanf("%d", &N);
+	for(int i = 0; i < N; i++)
+	{
+		scanf("%d", &P[i]);
+	}
+	for(int i = 0; i < N; i++)
+	{
+		for(int j = 0; j < N; j++)
+		{
+			if(P[i] < P[j])
+			{
+				int temp;
+				temp = P[i];
+				P[i] = P[j];
+				P[j] = temp;
+			}
+		}
+	}
+	int sum = 0;
+	for(int i = 0; i < N; i++)
+	{
+		for(int j = 0; j <= i; j++)
+		{
+			sum += P[j];
+		}
+	}
+	printf("%d\n", sum);
+	return 0;
+}
