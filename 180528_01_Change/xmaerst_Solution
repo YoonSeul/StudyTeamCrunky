@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+int coin[6] = {1, 5, 10, 50, 100, 500};
+int main()
+{
+	int money, i = 6, change = 0;
+	scanf("%d", &money);
+	money = 1000 - money;
+	while(i--)
+	{
+		while(money >= coin[i])
+		{
+			money -= coin[i];
+			change++;
+		}
+	}
+	printf("%d\n", change);
+	return 0;
+}
