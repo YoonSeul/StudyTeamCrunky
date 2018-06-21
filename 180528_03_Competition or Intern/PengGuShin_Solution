@@ -1,0 +1,31 @@
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+
+int main(){
+	int n, m, k;
+	cin >> n >> m >> k;
+	int tg = n / 2;
+	int ig = n % 2;
+	int t;
+	if (tg < m){
+		t = tg;
+		m -= t;
+		k -= m;
+		while (k > 0){
+			t--;
+			k -= 3;
+		}
+	}
+	else{
+		t = m;
+		n -= 2 * t;
+		k -= n;
+		while (k > 0){
+			t--;
+			k -= 3;
+		}
+	}
+	cout << t;
+}
