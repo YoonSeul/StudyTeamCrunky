@@ -1,0 +1,59 @@
+import java.util.Scanner;
+
+public class Rope {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scanner = new Scanner(System.in);
+		int N = scanner.nextInt();
+		
+		int rope[] = new int[N+1];
+		
+		for(int i=1;i<=N;i++) {
+			rope[i] = scanner.nextInt();
+		}
+		
+		QuickSort(rope, 1, N);
+		
+		int j = N;
+		int max = 0;
+		for(int i=1; i<=N; i++) {
+			max = Math.max(max, rope[i]*j);
+			j--;
+		}
+		
+		System.out.println(max);
+	}
+	
+	public static void QuickSort(int a[], int begin, int end) {
+		int p;
+		if(begin < end) {
+			p = partition(a, begin, end);
+			QuickSort(a, begin, p-1);
+			QuickSort(a, p+1, end);
+		}
+	}
+	
+	public static int partition(int a[], int begin, int end) {
+			int pivot_item = a[begin];
+			int temp;
+			int p;
+			
+			int j = begin;
+			for(int i=begin+1; i <= end; i++) {
+				if(a[i] < pivot_item) {
+					j++;
+					temp = a[i];
+					a[i] = a[j];
+					a[j] = temp;
+				}
+			}
+			
+			p = j;
+			temp = a[begin];
+			a[begin] = a[p];
+			a[p] = temp;
+			
+			return p;
+	}
+}
