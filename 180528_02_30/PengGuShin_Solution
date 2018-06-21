@@ -1,0 +1,30 @@
+#include <iostream>
+#include <stdlib.h>
+#include <string.h>
+
+using namespace std;
+
+int compare(const void *a, const void *b)
+{
+	return *(char *)b - *(char *)a;
+}
+
+int main(){
+	char c[100000];
+	int inx;
+	int val = 0;
+	cin >> c;
+	inx = strlen(c);
+	for (int i = 0; i < inx; i++){
+		val += (int)(char)(c[i] - '0');
+	}
+	qsort(c, inx, sizeof(char), compare);
+	if ((c[inx - 1] == '0') && (val % 3 == 0)){
+		for (int i = 0; i < inx; i++){
+			cout << c[i];
+		}
+	}
+	else{
+		cout << -1;
+	}
+}
