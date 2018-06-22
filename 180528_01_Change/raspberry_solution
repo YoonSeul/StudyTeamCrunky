@@ -1,0 +1,20 @@
+#include<iostream>
+
+using namespace std;
+
+int main() {
+	int C[7] = { 500,100,50,10,5,1 };
+	int index = 0;
+	int result = 0;
+	int N;
+	cin >> N;
+	int money = 1000 - N;
+
+	while (money != 0)
+	{
+		int change = money/C[index];
+		money -= change*C[index++];
+		result += change;
+	}
+	cout << result;
+}
