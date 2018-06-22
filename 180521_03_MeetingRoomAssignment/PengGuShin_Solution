@@ -1,0 +1,38 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+class meet{
+public:
+	int start;
+	int end;
+};
+
+bool cmp_e(meet a, meet b) { return a.end < b.end; }
+bool cmp_s(meet a, meet b) { return a.start < b.start; }
+
+int main(){
+	int n;
+	int k = 0;
+	int x = 0;
+	cin >> n;
+	meet *t = new meet[n];
+	for (int i = 0; i < n; i++){
+		cin >> t[i].start >> t[i].end;
+	}
+	sort(t, t + n, cmp_e);
+	for (int i = 0; i < n; i++){
+		if (k <= t[i].start){
+			int j = i + 1;
+			while ((j < n) && (t[i].end == t[j].end)){
+				j++;
+			}
+			sort(t + i, t + j, cmp_s);
+			k = t[i].end;
+			x++;
+		}
+	}
+	cout << x;
+	delete[] t;
+}
