@@ -1,0 +1,24 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int N;
+	cin >> N;
+	N = 1000 - N;
+	int C[6] = { 500,100,50,10,5,1 };
+	int P = 0;
+	int x = 0;
+	for (int i = 0; i < 6; i++) {
+		while (P < N) {
+			P += C[i];
+			x += 1;
+		}
+		if (P > N) {
+			P -= C[i];
+			x -= 1;
+		}
+		if (P == N) { break; }
+	}
+	cout << x;
+}
