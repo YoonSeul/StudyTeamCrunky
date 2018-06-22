@@ -1,0 +1,23 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+int main() {
+	int n;	//포도주 잔의 개수(1<=n<=10000)
+	int Jan[10001] = {0,};	//잔의 포도주 양
+	long int D[10001] = {0,};	//동적배열 계산
+	cin >> n;
+	for (int i = 1; i <= n; i++)
+	{
+		cin >> Jan[i];
+	}
+	D[1] = Jan[1];
+	D[2] = D[1] + Jan[2];
+	for (int i = 3; i <= n; i++)
+	{
+		D[i] = max(D[i - 3] + Jan[i - 1] + Jan[i], D[i - 2] + Jan[i]);
+		D[i] = max(D[i], D[i-1]);
+	}
+	cout << D[n];
+	return 0;
+}
