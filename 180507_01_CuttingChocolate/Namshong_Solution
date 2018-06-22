@@ -1,0 +1,19 @@
+import java.util.Scanner;
+
+public class CuttingChocolate {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int N,M;
+		Scanner scanner = new Scanner(System.in);
+		
+		N = scanner.nextInt();
+		M = scanner.nextInt();
+		
+		int result;
+		result = N*M-1;
+		
+		System.out.println(result);
+	}
+
+}
