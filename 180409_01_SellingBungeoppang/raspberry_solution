@@ -1,0 +1,27 @@
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+int main()
+{
+	int N;
+	int P[1001] = { 0, };
+	long int D[1001] = { 0, };
+
+	cin >> N;
+
+	for (int i = 1; i <= N; i++)
+	{
+		cin >> P[i];
+	}
+	for (int i = 2; i <= N; i++)
+		for (int j = 1; j <= N; j++)
+	{
+			D[1] = P[1];
+			D[i] = max(D[i] , P[j] + D[i-j]);
+	}
+
+	cout << D[N] << endl;
+	return 0;
+}
