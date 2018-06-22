@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+ 
+int main() {
+    int n;
+    long long D[11],sum=0,A[11];
+    cin >> n;
+    if (n == 1) {
+        cout << 10;
+        return 0;
+    }
+    for (int i = 1; i <= 10; i++) {
+        D[i] = i;
+        A[i] = D[i];
+        sum += D[i];
+    }
+    for (int a = 2; a < n; a++) {
+        A[10] = sum;
+        for (int b = 9; b >= 1; b--) {
+            A[b] = (A[b + 1] - D[b + 1]);
+        }
+        for (int b = 1; b <= 10; b++) {
+            D[b] = A[b] % 10007;
+        }
+        sum = 0;
+        for (int b = 1; b <= 10; b++) {
+            sum = (sum+D[b]);
+            
+        }
+    }
+    cout << sum % 10007;
+    return 0;
+}
