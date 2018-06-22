@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+int fibonacci(int);
+extern int x=0, y=0;
+
+int main(){
+	int T;
+	
+	cin >> T;
+
+	while (T--)
+	{
+		int n;
+		cin >> n;
+		fibonacci(n);
+
+		cout << x << ' ' << y << endl;
+		x = 0, y = 0;
+	}
+}
+
+int fibonacci(int n) {
+	if (n == 0) {
+		x++;
+	}
+	else if (n == 1) {
+		y++;
+	}
+	else {
+		return fibonacci(n-1) + fibonacci(n-2);
+	}
+}
