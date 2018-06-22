@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class Wine {
+	public static void main(String[] args) {
+		int n;
+		Scanner scanner = new Scanner(System.in);
+		n = scanner.nextInt();
+		
+		int[] W = new int[n+1];
+		int[] PartialAdd = new int[n+1];
+		for(int i=1; i<=n; i++) {
+			W[i] = scanner.nextInt();
+		}
+		
+		int max = 0;
+		for(int i=1; i<=n; i++) {
+			if(i==1) {
+				PartialAdd[i] = W[i];
+			}else if(i==2) {
+				PartialAdd[i] = W[i] + W[i-1];
+			}else {
+				max = Math.max(PartialAdd[i-1], PartialAdd[i-2] + W[i]);
+				max = Math.max(max, W[i] + W[i-1] + PartialAdd[i-3]);
+				PartialAdd[i] = max;
+			}
+		}
+		
+		System.out.println(PartialAdd[n]);
+	}
+
+}
