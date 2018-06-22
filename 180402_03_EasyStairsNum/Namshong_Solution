@@ -1,0 +1,40 @@
+import java.util.Scanner;
+import java.math.BigInteger;
+
+public class SimpleStairNumber {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		int n;
+		n = scanner.nextInt();
+		
+		BigInteger [][] N = new BigInteger[n+1][10];
+		
+		N[1][0] = BigInteger.ZERO;
+		for(int j=1; j<10; j++) {
+			N[1][j] = BigInteger.ONE;
+		}
+		
+		BigInteger count = new BigInteger("9");
+		
+		for(int i=2; i<=n; i++) {
+			count = BigInteger.ZERO;
+			for(int j=0; j<10; j++) {
+				if(j==0) {
+					N[i][j] = N[i-1][1];
+				}else if(j==9) {
+					N[i][j] = N[i-1][8];
+				}else {
+					N[i][j] = N[i-1][j+1].add(N[i-1][j-1]);
+				}
+				
+				if(i==n) {
+					count = count.add(N[i][j]);
+				}
+			}
+		}
+		
+		System.out.println(count.remainder(BigInteger.valueOf(1000000000)));
+	}
+
+}
