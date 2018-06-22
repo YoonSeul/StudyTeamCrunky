@@ -1,0 +1,31 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+int main() {
+
+	int N, M;
+	int package[51];
+	int indivisual[51];
+	int price=0;
+	cin >> N >> M;
+
+	for (int i = 0; i < M; i++)
+	{
+		cin >> package[i] >> indivisual[i];
+	}
+	sort(package, package + M);
+	sort(indivisual, indivisual + M);
+
+	while (N > 0) {
+		if (N >= 6) {
+			price += min(package[0], indivisual[0] * 6);
+			N -= 6;
+		}
+		else if( N < 6 ){
+			price += min(package[0], indivisual[0] * N);
+			N = 0;
+		}
+	}
+	cout << price << endl;
+}
