@@ -1,0 +1,22 @@
+//fail algorithm
+
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main() {
+
+	int N, M, K;
+	cin >> N >> M >> K;
+	int p, q;
+	int remain;
+	int result;
+	if (N >= 2 * M) {//male->team count
+		N = N - K;
+		result = min(N / 2, M);
+	}
+	else if (N < 2 * M) {//female->team count
+		M = M - K;
+		result = min(N / 2, M);
+	}
+	cout << result;
+}
