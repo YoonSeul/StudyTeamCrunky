@@ -1,0 +1,17 @@
+//compile error
+
+#include <iostream>
+#include <algorithm>  
+using namespace std;
+
+int main() {
+	int i, j, n, sum = 0;
+	int d[501][501] = { 0 };
+	scanf("%d", &d[i][j]);
+
+	if (j == 1)d[i][j] = d[i - 1][j] + d[i][j];
+	else if (j == i)d[i][j] = d[i - 1][j - 1] + d[i][j];
+	else d[i][j] = max(d[i - 1][j - 1], d[i - 1][j]) + d[i][j];
+	if (max < d[i][j]) { sum = d[i][j]; }
+	
+	printf("%d", sum);
