@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+class house {
+public:
+	int r, g, b;
+	void setArr(int r, int g, int b);
+};
+
+void house::setArr(int r, int g, int b) {
+	this->r = r;
+	this->g = g;
+	this->b = b;
+}
+
+int min(int x, int y) {
+	return (x < y) ? x :  y;
+}
+
+int main() {
+	int N;
+	house arr[1001];	// don't use arr[0]. answer= arr[input];
+
+	cin >> N;
+	house *input = new house[N+1];
+	for (int i = 1; i <= N; i++) {
+		cin >> input[i].r >> input[i].g >> input[i].b;
+	}
+
+	arr[1].setArr(input[1].r, input[1].g, input[1].b);
+
+	for (int i = 2; i <= N; i++) {
+		arr[i].r = input[i].r + min(arr[i-1].g, arr[i-1].b);
+		arr[i].g = input[i].g + min(arr[i-1].r, arr[i-1].b);
+		arr[i].b = input[i].b + min(arr[i-1].r, arr[i-1].g);
+	}
+
+	int minCost = arr[N].r;
+	minCost = (minCost < min(arr[N].g, arr[N].b)) ? minCost : min(arr[N].g, arr[N].b);
+	cout << minCost << endl;
+
+	delete[] input;
+	return 0;
+}
