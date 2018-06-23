@@ -1,0 +1,40 @@
+#include <iostream>
+#define MAX 1000
+using namespace std;
+
+
+void quickSort(int* P, int N){
+	int hasItChanged = 1;
+	while (hasItChanged){
+		hasItChanged = 0;
+		for (int i = 0; i < N - 1; i++){
+			int temp = P[i];
+			if (P[i]>P[i + 1]){
+				P[i] = P[i + 1];
+				P[i + 1] = temp;
+				hasItChanged = 1;
+			}
+		}
+	}
+}
+
+int minTime(int* P, int N){
+	int result = 0;
+	for (int i = 0; i < N; i++)
+		result += P[i] * (N - i);
+	return result;
+}
+
+int main(){
+	int N;
+	int *P;
+	cin >> N;
+	P = new int[N];
+	for (int i = 0; i < N; i++)
+		cin >> P[i];
+	quickSort(P, N);
+	int result = minTime(P, N);
+	cout << result;
+
+	return 0;
+}
