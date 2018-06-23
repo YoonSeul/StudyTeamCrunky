@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+
+
+int calculmin(int* A, int N) {
+	int w = A[0] / 1;
+	for (int i = 1; i < N; i++) {
+		if (A[i] * (i + 1) > w)
+			w = A[i] * (i + 1);
+	}
+	return w;
+}
+
+int intcmp(const void* a, const void* b)
+{
+	const int* A = (const int *)a;
+	const int* B = (const int *)b;
+
+	if (*A < *B) return 1;
+	else if (*A > *B) return -1;
+	else return 0;
+}
+
+
+
+int main() {
+	int N;
+	int *A;
+	cin >> N;
+	A = new int[N];
+	for (int i = 0; i < N; i++)
+		cin >> A[i];
+	qsort(A, N, sizeof(int), intcmp);
+	cout << calculmin(A, N);
+	delete A;
+	return 0;
+}
