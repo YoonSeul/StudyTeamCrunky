@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+
+int main() {
+	int N, K;
+	int input[101];
+	int arr[10001];	// don't use arr[0]. answer= arr[input];
+
+	cin >> N >> K;
+
+	for (int i = 1; i <= N; i++) {
+		cin >> input[i];
+	}
+
+	arr[0] = 1;
+
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= K; j++)
+			if (j >= input[i])
+				arr[i] += arr[j - input[i]];
+	}
+
+	cout << arr[K] << endl;
+	return 0;
+}
