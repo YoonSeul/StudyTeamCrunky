@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int T;
+	int input[301];	// doesn't use num[0];
+	int arr[301];	// for answer
+	cin >> T;
+
+	for (int i = 1; i <= T; i++) {
+		cin >> input[i];
+	}
+
+	arr[0] = 0;
+	arr[1] = input[1];
+	if (T >= 2) arr[2] = input[1] + input[2];
+	/* arr[n]은 n번째 계단까지 올라갔을 때의 최대값을 저장하기로 한다. */
+	for (int i = 3; i <= T; i++) {
+		int temp = arr[i - 3] + input[i - 1] + input[i];	// 까앙총 깡총
+		int temp2 = arr[i - 2] + input[i];	// 까앙총
+		arr[i] = (temp > temp2) ? temp : temp2;
+	}
+	cout << arr[T] << endl;
+	return 0;
+}
