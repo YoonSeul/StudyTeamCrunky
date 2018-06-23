@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+int count(int N, bool female) {
+	if (female) N /= 2;
+	return N;
+}
+
+int main() {
+	int N, M, K;
+
+	cin >> N >> M >> K;
+
+	while (K > 0) {
+		if (count(N, 1) >= count(M, 0)) N--;
+		else M--;
+
+		K--;
+	}
+
+	int result = (N / 2 <= M) ? N / 2 : M;
+
+	cout << result << endl;
+	return 0;
+
+}
