@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+
+int main() {
+	int N, M;
+	int input[1001][10001];
+	int arr[1001][10001];
+
+	cin >> N >> M;
+
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= M; j++)
+			cin >> input[i][j];
+	}
+
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= M; j++) {
+			int temp1 = arr[i - 1][j - 1];
+			int temp2 = arr[i - 1][j];
+			int temp3 = arr[i][j - 1];
+
+			int max = (temp1 > temp2) ? temp1 : temp2;
+			max = (temp3 > max) ? temp3 : max;
+			arr[i][j] = max + input[i][j];
+		}
+	}
+
+	cout << arr[N][M] << endl;
+	return 0;
+
+}
