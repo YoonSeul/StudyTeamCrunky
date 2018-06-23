@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+class numset {
+public:
+	int num_0;
+	int num_1;
+	numset();
+	numset operator+(const numset& a);
+};
+
+numset::numset() {
+	num_0 = 0;
+	num_1 = 0;
+}
+
+numset numset:: operator+(const numset& a) {
+	numset result;
+	result.num_0 = this->num_0 + a.num_0;
+	result.num_1 = this->num_1 + a.num_1;
+
+	return result;
+}
+
+int main() {
+	int T;
+	int *num;
+	numset arr[41];
+	cin >> T;
+
+	num = new int[T];
+
+	arr[0].num_0 = 1;
+	arr[1].num_1 = 1;
+
+	for (int i = 2; i < 41; i++) {
+		arr[i] = arr[i - 1] + arr[i - 2];
+	}
+
+	for (int i = 0; i < T; i++) {
+		cin >> num[i];
+	}
+
+	for (int i = 0; i < T; i++) {
+		cout << arr[num[i]].num_0 << " " << arr[num[i]].num_1 << endl;
+	}
+
+	return 0;
+}
