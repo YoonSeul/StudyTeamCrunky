@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+
+int facto(int a) {
+	int x = 1;
+	for (int i = 1; i <= a; i++) {
+		x *= i;
+	}
+	return x;
+}
+
+
+int main() {
+	int T;
+	int N, M;
+
+	cin >> T;
+	//int* print = new int[T];
+	int i = 0;
+	while (T - i > 0) {	// 출력이 복잡하므로 한꺼번에 처리
+		cin >> N >> M;
+		cout << facto(M) / (facto(M - N)*facto(N)) << endl;
+		//print[i] = facto(M) / (facto(M - N)*facto(N));
+		i++;
+	}
+	/*
+	for (int i = 0; i < T; i++) {
+		cout << print[i] << endl;
+	}
+
+	delete[] print;
+	*/
+	return 0;
+}
