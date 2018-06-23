@@ -1,0 +1,41 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+class schedule {
+public:
+	int start, end;
+};
+
+bool cmp(const schedule& a, const schedule& b) {
+	if (a.end == b.end) return a.start < b.start;
+	else return a.end < b.end;
+}
+
+int main() {
+	int N;
+	schedule input[10001];
+	int arr_start, result;
+
+	cin >> N;
+
+	for (int i = 1; i <= N; i++)
+		cin >> input[i].start >> input[i].end;
+
+	sort(input + 1, input + N + 1, cmp);
+
+	
+	arr_start = 0;
+	result = 0;
+
+	for (int i = 1; i <= N; i++) {
+		if (arr_start <= input[i].start) {
+			arr_start = input[i].end;
+			result++;
+		}
+	}
+
+	cout << result << endl;
+	return 0;
+
+}
