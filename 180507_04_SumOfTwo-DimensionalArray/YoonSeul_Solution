@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+ 
+int main(){
+    
+    int N,M,K;
+    cin>>N>>M;
+    
+    int value=0;
+    int arr[301][301]={0};
+    for(int i=1;i<=N;i++)
+        for(int j=1;j<=M;j++){
+            scanf("%d",&value);
+            arr[i][j]=arr[i-1][j]+arr[i][j-1]-arr[i-1][j-1]+value;
+        }
+    
+    cin>>K;
+    int sum=0;
+    int x1,x2,y1,y2;
+    for(int testCase=0;testCase<K;testCase++){
+        scanf("%d %d %d %d",&y1,&x1,&y2,&x2);
+        
+        sum=arr[y2][x2]-arr[y2][x1-1]-arr[y1-1][x2]+arr[y1-1][x1-1];
+        printf("%d\n",sum);
+    }
+    
+    return 0;
+}
