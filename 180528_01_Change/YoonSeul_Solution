@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int N;
+	int change;
+	int balance;
+	int result = 0;
+
+	cin >> N;
+	change = balance = 1000 - N;
+	
+	while (balance > 0) {
+		if (balance / 500) {
+			result += balance / 500;
+			balance %= 500;
+		}
+		else if (balance / 100) {
+			result += balance / 100;
+			balance %= 100;
+		}
+		else if (balance / 50) {
+			result += balance / 50;
+			balance %= 50;
+		}
+		else if (balance / 10) {
+			result += balance / 10;
+			balance %= 10;
+		}
+		else if (balance / 5) {
+			result += balance / 5;
+			balance %= 5;
+		}
+		else {
+			result += balance;
+			balance = 0;
+		}
+	}
+
+	cout << result << endl;
+	return 0;
+
+}
