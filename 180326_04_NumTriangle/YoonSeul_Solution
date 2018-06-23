@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+
+int main() {
+	int N;
+	int arr[501][501] = { 0 };	// don't use arr[0]. answer= arr[input];
+	int max = 0;
+
+	cin >> N;
+	for (int i = 1; i <= N; i++) {	// 출력은 최후에 한 번만 수행되므로 입력 직후 계산 수행
+		for (int j = 1; j <= i; j++) {
+			cin >> arr[i][j];
+			if (j == 1) arr[i][j] += arr[i - 1][j];
+			else if (j == i) arr[i][j] += arr[i - 1][j - 1];
+			else{
+                int temp = (arr[i - 1][j - 1] > arr[i - 1][j]) ? arr[i - 1][j - 1] : arr[i - 1][j];
+				arr[i][j] += temp;
+            }
+			if (max < arr[i][j]) max = arr[i][j];
+		}
+	}
+
+	cout << max << endl;
+	return 0;
+}
