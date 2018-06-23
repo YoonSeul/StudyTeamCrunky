@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+int calculmin(int* A, int N, int K){
+	int result = 0;
+	int balance = K;
+	for (int i = N - 1; i >= 0; i--){
+		if (balance == 0) break;
+		else if (A[i] <= balance){
+			result += (balance / A[i]);
+			balance %= A[i];
+		}
+	}
+
+	return result;
+}
+
+
+
+int main(){
+	int N, K;
+	int *A;
+	cin >> N >> K;
+	A = new int[N];
+	for (int i = 0; i < N; i++)
+		cin >> A[i];
+	cout << calculmin(A, N, K);
+
+	delete A;
+	return 0;
+}
