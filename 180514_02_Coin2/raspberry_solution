@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int n, k;
+	int D[10001] = {};
+	int coin[101];
+	cin >> n >> k;
+
+	for (int i = 0; i < n; i++) {
+		cin>>coin[i];
+
+		for (int j = 1; j <= k / coin[i]; j++)
+		{
+			int nowCoin = coin[i] * j;
+			if (D[nowCoin] == 0)
+				D[nowCoin] = j;
+			else
+				D[nowCoin] = D[nowCoin] < j ? D[nowCoin] : j;
+		}
+	}
+
+	for (int i = 2; i <= k; i++)
+	{
+		for (int j = 1; j <= i / 2; j++)
+		{
+			if (D[j] != 0 && D[i - j] != 0) {
+				if (D[i] == 0)
+					D[i] = D[j] + D[i - j];
+				else
+				{
+					int temp = D[j] + D[i - j];
+					if (D[i] > temp)
+						D[i] = temp;
+				}
+			}
+		}
+	}
+
+	if (D[k] == 0)
+		cout<<-1;
+	else
+		cout<<D[k];
+
+}
