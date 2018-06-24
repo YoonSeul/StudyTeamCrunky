@@ -4,16 +4,14 @@ using namespace std;
 
 int main() {
 	int N;
-	int arr[31];
+	int arr[31] = { 0, };
 	cin >> N;
 
 	arr[0] = 1;
 	arr[2] = 3;
-	for (int i = 2; i <= N; i += 2) {
-		for (int j = 2; j <= i; j += 2) {
-			if (j == 2)
-				arr[i] += 3 * arr[i - j];
-			else
+	for (int i = 4; i <= N; i += 2) {
+		arr[i] += 3 * arr[i - 2];
+		for (int j = 4; j <= i; j += 2) {
 			arr[i] += 2 * arr[i - j];
 		}
 	}
