@@ -1,0 +1,22 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main(void) {
+	int T;
+	long long int D[101] = { 1, 1, 1, 1, 2, 2, };
+
+	cin>>T;
+
+	for (int i = 6; i <= 100; i++) {
+		D[i] = D[i - 1] + D[i - 5];
+		//초기값 제외하고 이 규칙따름
+	}
+	while (T--) {
+		int n;
+		cin >> n;
+		cout << D[n];
+	}
+
+}
