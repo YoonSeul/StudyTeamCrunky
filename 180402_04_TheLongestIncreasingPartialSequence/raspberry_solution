@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int N;
+	int D[1010] = {};
+	int A[1010] = {};
+	int max = 0;
+	cin >> N;
+
+	for (int i = 1; i <= N; i++)
+		cin >> A[i];
+
+	for (int i = 1; i <= N; i++)
+	{
+		int min = 0;
+		for (int j = 0; j < i; j++) {
+			if (A[i]>A[j]) {
+				if (min < D[j])
+					min = D[j];
+			}
+		}
+		D[i] = min + 1;
+		if (max < D[i])
+			max = D[i];
+	}
+
+	cout << max << endl;
+
+	return 0;
+}
