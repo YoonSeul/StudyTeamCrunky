@@ -1,47 +1,21 @@
-//time out
+#include <stdio.h>
 
-#include <iostream>
-using namespace std;
+int d[31];
 
-int Table[30][30];
-
-void init_table(){
-	for (int n = 0; n < 30; n++) {
-		for (int m = 0; m < 30; m++) {
-			Table[n][m] = 0;
-		}
-	}
-}
-;
-void make_table(int n, int m) {
-	if (n == 0 || n > m || Table[n][m] != 0) {
-		return;
-	}
-	if (n == m) {
-		Table[n][m] = 1;
-	}
-	if (n == 1) {
-		Table[n][m] = m;
-	}
-	else {
-		for (int i = 1; i <= (m - n + 1); i++) {
-			if (Table[n - 1][m - 1] == 0) {
-				make_table(n - 1, m - 1);
-			}
-			Table[n][m] += Table[n - 1][m - 1];
-		}
-	}
-}
 int main() {
 	int T;
-	cin >> T;
+	scanf("%d", &T);
 
-	for (int i = 0; i < T; i++) {
+	while (T--) {
 		int N, M;
-		cin >> N;
-		cin >> M;
-		make_table(N, M);
-		cout << Table[N][M] << endl;
+		scanf("%d %d", &N, &M);
+		for (int i = 0; i <= 30; ++i) {
+			d[i] = 0;
+		}
+		d[N] = 1;
+		for (int i = N + 1; i <= M; ++i) {
+			d[i] = d[i - 1] * i / (i - N);
+		}
+		printf("%d\n", d[M]);
 	}
-	return 0;
 }
