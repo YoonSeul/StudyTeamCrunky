@@ -1,0 +1,15 @@
+#include<iostream>
+
+using namespace std;
+
+int main() {
+	int n;
+	int D[1000] = { 0,1,2, };
+	cin >> n;
+
+	for (int i = 3; i <= n; i++)
+		D[i] = (D[i - 1] + D[i - 2]) % 10007;
+
+	cout << D[n];
+	return 0;
+}
