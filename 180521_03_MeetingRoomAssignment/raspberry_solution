@@ -25,12 +25,12 @@ int schedule(void)
 	for (int i = 0; i < order.size(); i++){
 		int meetingBegin = order[i].second, meetingEnd = order[i].first;
   if (earliest <= meetingBegin){
-			//earliest를 마지막 회의가 끝난 시간 이후로 갱신
-			earliest = meetingEnd;
-			selected++;
-		}
+	//earliest를 마지막 회의가 끝난 시간 이후로 갱신
+	earliest = meetingEnd;
+	selected++;
 	}
-	return selected;
+  }
+  return selected;
 }
 
 int main(void)
