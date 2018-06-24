@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+
+int main() {
+	int N, K;
+	long int arr[10001] = { 0 };
+	int input[101];
+	cin >> N >> K;
+
+	for (int i = 1; i <= N; i++)
+		cin >> input[i];
+
+	arr[0] = 1;
+
+	for (int i = 1; i <= N; i++) {
+		for (int j = input[i]; j <= K; j++) {
+			arr[j] += arr[j - input[i]];
+		}
+	}
+
+	cout << arr[K] << endl;
+	return 0;
+
+}
