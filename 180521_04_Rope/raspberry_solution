@@ -1,0 +1,30 @@
+#include <iostream>
+#include <algorithm>
+#include <cstdio>
+
+using namespace std;
+
+bool cmp(const int &a, const int &b)
+{
+	return a > b;
+}
+int main()
+{
+	int n, k;
+	int rope[100010];
+	int D[100020];
+
+	cin >> n;
+	for (int i = 0; i < n; i++)
+		cin >> rope[i];
+
+	sort(rope, rope + n, cmp);
+
+	for (int i = 0; i < n; i++)
+		D[i + 1] = rope[i] * (i + 1);
+
+	sort(D, D + n + 1, cmp);
+
+	cout << D[0];
+	return 0;
+}
