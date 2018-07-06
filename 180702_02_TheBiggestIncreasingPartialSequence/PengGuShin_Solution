@@ -1,0 +1,27 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+	int n, x;
+	cin >> n;
+	int *k = new int[n];
+	for (int i = 0; i < n; i++) {
+		cin >> k[i];
+	}
+	int *m = new int[n];
+	m[0] = x = k[0];
+	for (int i = 1; i < n; i++) {
+		m[i] = 0;
+		for (int j = 0; j < i; j++) {
+			if (k[i] > k[j] && m[i] < m[j]) {
+				m[i] = m[j];
+			}
+		}
+		m[i] += k[i];
+		x = max(x, m[i]);
+	}
+	cout << x;
+	delete[] m, k;
+}
