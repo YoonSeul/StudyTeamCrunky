@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+const int MAX = 100000;
+const int MOD = 9901;
+int N;
+int cache[3][MAX + 1]; //0: 없다, 1: 왼쪽에 있다, 2: 오른쪽에 있다
+int Lion(void)
+{
+        //첫 번째 줄에 사자가 없을 수도, 왼쪽에 있을 수도, 오른쪽에 있을 수도 있다
+        cache[0][1] = cache[1][1] = cache[2][1] = 1;
+        for (int i = 2; i <= N; i++)
+        {
+               //전 줄의 배치와 상관없이 사자가 없을 수 있다
+               cache[0][i] = (cache[0][i - 1] + cache[1][i - 1] + cache[2][i - 1]) % MOD;
+               //전 줄에 없거나 오른쪽에 있었다면 왼쪽 배치 가능
+               cache[1][i] = (cache[0][i - 1] + cache[2][i - 1]) % MOD;
+               //전 줄에 없거나 왼쪽에 있었다면 오른쪽 배치 가능
+               cache[2][i] = (cache[0][i - 1] + cache[1][i - 1]) % MOD;
+        }
+        return (cache[0][N] + cache[1][N] + cache[2][N]) % MOD;
+}
+int main(void)
+{
+        cin >> N;
+        if (N<1 || N>MAX)
+               exit(-1);
+        cout << Lion() << endl;
+        return 0;
+}
