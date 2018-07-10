@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cstring> //memset
+
+using namespace std;
+const int MAX = 100;
+int N;
+int board[MAX][MAX];
+long long cache[MAX][MAX]; //최대 2^63 - 1
+
+/*
+
+long long path(void)
+{
+        cache[0][0] = 1; //시작
+        for(int i=0; i<N; i++)
+               for (int j = 0; j < N; j++)
+               {
+                       //아래로 갈 수 있고, 움직였을 때 범위 안에 있다면
+                       if (i != N - 1 && i + board[i][j] < N)
+                              cache[i + board[i][j]][j] += cache[i][j];
+                       //오른쪽으로 갈 수 있고,, 움직였을 때 범위 안에 있다면
+                       if (j != N - 1 && j + board[i][j] < N)
+                              cache[i][j + board[i][j]] += cache[i][j];
+               }
+        return cache[N - 1][N - 1];
+}
+*/
+//재귀
+
+long long path(int y, int x)
+{
+        if (y == N - 1 && x == N - 1)
+               return 1;
+        long long &result = cache[y][x];
+        if (result != -1)
+               return result;
+        result = 0;
+        //아래로 갈 수 있고, 움직였을 때 범위 안에 있다면
+        if (y != N - 1 && y + board[y][x] < N)
+               result += path(y + board[y][x], x);
+        //오른쪽으로 갈 수 있고,, 움직였을 때 범위 안에 있다면
+        if (x != N - 1 && x + board[y][x] < N)
+               result += path(y, x + board[y][x]);
+        return result;
+}
+int main(void)
+{
+        cin >> N;
+        if (N<4 || N>MAX)
+               exit(-1);
+        for (int i = 0; i < N; i++)
+               for (int j = 0; j < N; j++)
+                       cin >> board[i][j];
+        memset(cache, -1, sizeof(cache));
+        //cout << path() << endl;
+        cout << path(0, 0) << endl;
+        return 0;
+}
