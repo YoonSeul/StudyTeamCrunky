@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int dp[501][501] = { 0 };
+int map[501][501] = { 0 };
+int dx[4] = { 0, 0, -1, 1 }, dy[4] = { 1, -1, 0, 0 };
+int N, M;
+int H(int x, int y)
+{
+	int path = 0;
+	if(x == 0 || y == 0) return 0;
+	if(x == N && y == M) return 1;
+	if(map[x][y] != -1) return map[x][y];
+	for(int i = 0; i < 4; i++)
+	{
+		if(dp[x + dx[i]][y + dy[i]] < dp[x][y])
+		{
+			path += H(x + dx[i], y + dy[i]);
+		}
+	}
+	return map[x][y] = path;
+}
+int main()
+{
+	scanf("%d %d", &N, &M);
+	for(int i = 1; i <= N; i++)
+	{
+		for(int j = 1; j <= M; j++)
+		{
+			scanf("%d", &dp[i][j]);
+			map[i][j] = -1;
+		}
+	}
+	printf("%d\n", H(1, 1));
+	return 0;
+}
