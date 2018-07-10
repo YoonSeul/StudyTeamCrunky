@@ -1,0 +1,34 @@
+#include <stdio.h>
+#define max(a, b) (a > b ? a : b)
+
+int main()
+{
+	int n;
+	int arr[1001];
+	int dp[1001] = { 0 };
+	scanf("%d", &n);
+	for(int i = 1; i <= n; i++)
+	{
+		scanf("%d", &arr[i]);
+	}
+	for(int i = 1; i <= n; i++)
+	{
+		dp[i] = 1; // dp[1] = 1 은 왜 안 되는지?
+                           // => 증가하는 부분 수열이 dp[1] 즉, 1번째 부터 시작을 안 할 수도 있기 때문에 dp[1] = 1이 아니라 dp[i] = 1이 되어야 한다.
+		for(int j = 1; j < i; j++)
+		{
+			if(arr[i] > arr[j] && dp[i] < dp[j] + 1) // dp[j] + 1 > dp[i] or dp[j] >= dp[i] ?
+								 // => dp[j] + 1 > dp[i] 와 dp[j] >= dp[i] 둘 다 가능하다. 이 조건을 설정하는 이유는 길이를 증가할 수 있는지에 대한 조건이 필요하기 때문이다.
+			{
+				dp[i] = dp[j] + 1;
+			}
+		}
+	}
+	int Max = 0;
+	for(int i = 1; i <= n; i++)
+	{
+		Max = max(Max, dp[i]);
+	}
+	printf("%d\n", Max);
+	return 0;
+}
