@@ -1,0 +1,34 @@
+import java.util.Scanner;
+
+public class BiggestIncreasingPartialSequence {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		int N = scan.nextInt();
+		int[] A = new int[N];
+		
+		int i,j;
+		for(i=0; i<N; i++) {
+			A[i] = scan.nextInt();
+		}
+		
+		int[] sum = new int[N];
+		int max = 0;
+		for(i=0; i<N; i++) {
+			sum[i] = A[i];
+			for(j=0; j<i; j++) {
+				if(A[i] > A[j]) {
+					sum[i] = Math.max(sum[i], sum[j]+A[i]);
+				}
+			}
+			
+			if(sum[i] > max) {
+				max = sum[i];
+			}
+			
+		}
+		System.out.println(max);
+	}
+
+}
