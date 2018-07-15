@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class BinomialCoefficient2 {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		int N = scan.nextInt();
+		int K = scan.nextInt();
+		
+		int answer = Combination(N,K);
+		
+		System.out.println(answer);
+	}
+
+	public static int Combination(int n, int k){
+		int [][]C = new int[n+1][k+1];
+		
+		for(int i=1; i<=n; i++) {
+			for(int j=0; j<=k; j++) {
+				if(j==0 || i==j) {
+					C[i][j] = 1;
+				}else {
+					C[i][j] = (C[i-1][j-1] + C[i-1][j])%10007;
+				}
+			}
+		}
+		
+		return C[n][k];
+    }
+}
