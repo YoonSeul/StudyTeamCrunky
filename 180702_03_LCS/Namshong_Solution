@@ -1,0 +1,30 @@
+import java.util.*;
+import java.io.*;
+
+public class LCS {
+	static String S1;
+	static String S2;
+	static int[][] dp;
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		
+		S1 = in.readLine();
+		S2 = in.readLine();
+		
+		int S1Length = S1.length();
+		int S2Length = S2.length();
+		dp = new int[S1Length+1][S2Length+1];
+		
+		for(int i=1; i<=S1Length; i++) {
+			for(int j=1; j<=S2Length; j++) {
+				if(S1.charAt(i-1) == S2.charAt(j-1)) {
+					dp[i][j] = dp[i-1][j-1]+1;
+				}else {
+					dp[i][j] = Math.max(dp[i][j-1], dp[i-1][j]);
+				}
+			}
+		}
+		
+		System.out.println(dp[S1Length][S2Length]);
+	}
+}
