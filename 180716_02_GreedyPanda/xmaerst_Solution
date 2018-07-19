@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+int dp[501][501] = { 0 };
+int bamboo[501][501] = { 0 };
+int dx[4] = { 0, 0, -1, 1 }, dy[4] = { 1, -1, 0, 0 };
+int n;
+int max = 0;
+int K(int x, int y)
+{
+	int nx, ny;
+	int path = 0;
+	for(int i = 0; i < 4; i++)
+	{
+		nx = x + dx[i];
+		ny = y + dy[i];
+		if(nx >= n || nx < 0 || ny >= n || ny < 0)
+		{
+			continue;
+		}
+		if(dp[nx][ny] < dp[x][y])
+		{
+			if(bamboo[nx][ny] == 0)
+			{
+				K(nx, ny);
+			}
+			if(path < bamboo[nx][ny])
+			{
+				path = bamboo[nx][ny];
+			}
+		}
+	}
+	bamboo[x][y] = path + 1;
+	if(max < bamboo[x][y])
+	{
+		max = bamboo[x][y];
+	}
+}
+int main()
+{
+	scanf("%d", &n);
+	for(int i = 0; i < n; i++)
+	{
+		for(int j = 0; j < n; j++)
+		{
+			scanf("%d", &dp[i][j]);
+		}
+	}
+	for(int i = 0; i < n; i++)
+	{
+		for(int j = 0; j < n; j++)
+		{
+			if(bamboo[i][j] == 0)
+			{
+				K(i, j);
+			}
+		}
+	}
+	printf("%d\n", max);
+	return 0;
+}
