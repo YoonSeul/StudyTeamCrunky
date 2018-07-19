@@ -1,0 +1,32 @@
+#include <stdio.h>
+#define min(a, b) (a < b ? a : b)
+
+int dp[1001][1001] = { 0 };
+int main()
+{
+	int n, m;
+	int num;
+	int max = 0;
+	scanf("%d %d", &n, &m);
+	for(int i = 1; i <= n; i++)
+	{
+		for(int j = 1; j <= m; j++)
+		{
+			scanf("%1d", &num); // 정수가 띄어쓰기 없이 입력 받을 때 입력이 어렵다. 이때 scanf("%1d", &num); 처럼 %1d 를 사용하면 정수가 띄어쓰기 없이 붙어있어도 한 번에 한 개씩 입력 받을 수 있다. 귀찮게 char 배열로 입력 받아서 변환 시켜 줄 필요가 없다.
+			if(i == 0 || j == 0)
+			{
+				dp[i][j] = num;
+			}
+			else if(num == 1)
+			{
+				dp[i][j] = min(min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;
+				if(max < dp[i][j])
+				{
+					max = dp[i][j];
+				}
+			}
+		}
+	}
+	printf("%d\n", max * max);
+	return 0;
+}
