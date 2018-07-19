@@ -1,0 +1,47 @@
+import java.util.*;
+import java.io.*;
+
+public class Jump {
+	static int N;
+	static int[][] Arr;
+	static long [][] Case;
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(in.readLine());
+		
+		Arr = new int[N][N];
+		Case = new long[N][N];
+		
+		int i,j;
+		for(i=0; i<N; i++) {
+			j = 0;
+			StringTokenizer st = new StringTokenizer(in.readLine()," ");
+			while(st.hasMoreTokens()) {
+				Arr[i][j++] = Integer.parseInt(st.nextToken());
+			}
+		}
+		
+		int nextX, nextY;
+		Case[0][0] = 1;
+		for(i=0; i<N; i++) {
+			for(j=0; j<N; j++) {
+				if(i == N-1 && j == N-1) {
+					break;
+				}
+				
+				if(Case[i][j] != 0) {
+					nextX = i + Arr[i][j];
+					nextY = j + Arr[i][j];
+					if(nextX < N) {
+						Case[nextX][j] += Case[i][j];
+					}
+						
+					if(nextY < N) {
+						Case[i][nextY] += Case[i][j];
+					}
+				}
+			}
+		}
+		System.out.println(Case[N-1][N-1]);
+	}
+}
