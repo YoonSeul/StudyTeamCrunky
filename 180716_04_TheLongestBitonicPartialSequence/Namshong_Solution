@@ -1,0 +1,50 @@
+import java.util.*;
+import java.io.*;
+
+public class LongestBitonicSequence {
+	static int N;
+	static int[] A;
+	static int[] dp1;
+	static int[] dp2;
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(in.readLine());
+		
+		StringTokenizer st = new StringTokenizer(in.readLine()," ");
+		int i = 0;
+		A = new int[N];
+		while(st.hasMoreTokens()) {
+			A[i++] = Integer.parseInt(st.nextToken());
+		}
+		
+		dp1 = new int[N];
+		dp2 = new int[N];
+		
+		int j, max;
+		for(i=0; i<N; i++) {
+			dp1[i] = 1;
+			for(j=0; j<i; j++) {
+				if(A[i] > A[j] && dp1[i] <= dp1[j]) {
+					dp1[i] = Math.max(dp1[i], dp1[j]+1);
+				}
+			}
+		}
+		
+		for(i=N-1; i>=0; i--) {
+			dp2[i] = 1;
+			for(j=N-1; i<j; j--) {
+				if(A[i] > A[j] && dp2[i] <= dp2[j]) {
+					dp2[i] = Math.max(dp2[i], dp2[j]+1);
+				}
+			}
+		}
+		
+		max = 0;
+		for(i=0; i<N; i++) {
+			max = Math.max(max, dp1[i] + dp2[i] - 1);
+		}
+		
+		System.out.println(max);
+	}
+
+}
