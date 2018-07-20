@@ -1,0 +1,30 @@
+import java.util.*;
+import java.io.*;
+
+public class DrunkenSangbum {
+	static int T;
+	static int n;
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		T = Integer.parseInt(in.readLine());
+		
+		int i,j,count;
+		double num;
+		for(i=0; i<T; i++) {	// 테스트 케이스 만큼
+			n = Integer.parseInt(in.readLine());
+			count = 0;
+			num = 1.0;
+			for(j=1; j<=n; j++) {	// n만큼
+				if(Math.sqrt(j) == num) {
+					count++;
+					num++;
+				}
+			}
+			out.write(Integer.toString(count));
+			out.newLine();
+		}
+		out.close();
+	}
+}
