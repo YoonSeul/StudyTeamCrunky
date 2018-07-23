@@ -1,0 +1,42 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+	int n, k, x;
+	cin >> n;
+	int *a = new int[n];
+	int *u = new int[n];
+	int *d = new int[n];
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
+		u[i] = d[i] = 1;
+	}
+	k = 1;
+	if (n > 1) {
+		for (int i = 1; i < n; i++) {
+			x = 0;
+			for (int j = 0; j < i; j++) {
+				if (a[i] > a[j] && u[j] >= x + 1) {
+					x = u[j];
+				}
+			}
+			u[i] = x + 1;
+		}
+		for (int i = n - 2; i >= 0; i--) {
+			x = 0;
+			for (int j = n - 1; j > i; j--) {
+				if (a[i] > a[j] && d[j] >= x + 1) {
+					x = d[j];
+				}
+			}
+			d[i] = x + 1;
+		}
+		for (int i = 0; i < n; i++) {
+			k = max(k, u[i] + d[i] - 1);
+		}
+	}
+	cout << k;
+	delete[] a, u, d;
+}
