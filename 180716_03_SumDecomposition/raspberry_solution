@@ -1,0 +1,71 @@
+#include <iostream>
+#include <cstring> //memset
+using namespace std;
+
+const int MAX = 501;
+
+int N;
+int bamboo[MAX][MAX];
+int D[MAX][MAX];
+
+int maxday(int y, int x) {
+	int &result = D[y][x];
+	if (result != -1)
+		return result;
+	result = 1;//첫날
+	int temp;
+	//동서남북 돌면서 탐색
+	if (y - 1 >= 0 && bamboo[y][x] < bamboo[y - 1][x])
+	{
+		temp = 1 + maxday(y - 1, x);
+		if (temp > result)
+			result = temp;
+	}
+	//남
+	if (y + 1 < N && bamboo[y][x] < bamboo[y + 1][x])
+	{
+		temp = 1 + maxday(y + 1, x);
+		if (temp > result)
+			result = temp;
+	}
+	//동
+	if (x + 1 < N && bamboo[y][x] < bamboo[y][x + 1])
+	{
+		temp = 1 + maxday(y, x + 1);
+		if (temp > result)
+			result = temp;
+	}
+	//서
+	if (x - 1 >= 0 && bamboo[y][x] < bamboo[y][x - 1])
+	{
+		temp = 1 + maxday(y, x - 1);
+		if (temp > result)
+			result = temp;
+	}
+	return result;
+}
+
+int main() {
+	cin >> N;
+	if (N < 1 || N >= MAX)
+		exit(-1);
+
+	for (int i = 0; i<N; i++)
+		for (int j = 0; j < N; j++)
+			cin >> bamboo[i][j];
+
+	memset(D, -1, sizeof(D));
+	int result = 0;
+
+	for (int i = 0; i<N; i++)
+		for (int j = 0; j < N; j++)
+		{
+			//(i, j)에서 먹기 시작할 때 최대 일 수
+			int temp = maxday(i, j);
+			//현재 최대 일수보다 높게 나왔다면 초기화
+			if (result < temp)
+				result = temp;
+		}
+	cout << result << endl;
+	return 0;
+}
