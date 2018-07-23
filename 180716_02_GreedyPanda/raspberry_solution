@@ -1,0 +1,27 @@
+#include <iostream>
+#include <cstring> //memset
+using namespace std;
+
+const int MAX = 201;
+const int mod = 1000000000;
+int N;
+int K;
+int dp[MAX][MAX];
+
+int main() {
+	cin >> N >> K;
+
+	for (int i = 0; i <= N; i++)
+		dp[1][i] = 1;
+	for (int i = 0; i <= N; i++)
+		dp[2][i] = i + 1;
+	for (int i = 3; i <= K; i++)
+	{
+		for (int j = 0; j <= N; j++)
+			for (int k = 0; k <= j; k++) {
+				dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % mod;
+				//이전의 합까지 더함
+			}
+	}
+	cout << dp[K][N] % mod << endl;
+}
