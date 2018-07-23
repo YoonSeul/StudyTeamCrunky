@@ -1,0 +1,49 @@
+#include <iostream>
+#include <cstring> //memset
+using namespace std;
+
+int main() 
+{
+	int N;
+	int dp[2][1001] = {};
+	int A[1001] = {};
+	int max = 0;
+	cin >> N;
+	//오른쪽 방향으로 진행
+	for (int i = 1; i <= N; i++)
+		cin>>A[i];
+
+	for (int i = 1; i <= N; i++)
+	{
+		int maxA = 0;
+		for (int j = 0; j < i; j++) {
+			if (A[i]>A[j]) {
+				if (maxA < dp[0][j])
+					maxA = dp[0][j];
+			}
+		}
+		dp[0][i] = maxA + 1;
+	}
+
+	//왼쪽 방향으로 진행
+	for (int i = N; i >= 1; i--)
+	{
+		int maxA = 0;
+		for (int j = N; j > i; j--) {
+			if (A[i]>A[j]) {
+				if (maxA < dp[1][j])
+					maxA = dp[1][j];
+			}
+		}
+		if (dp[1][i]<maxA + 1)
+			dp[1][i] = maxA + 1;
+	}
+	//dp배열의 합의 최대가 가장 긴 바이토닉 수열.
+	for (int i = 1; i <= N; i++) {
+		if (max < dp[0][i] + dp[1][i])
+			max = dp[0][i] + dp[1][i];
+	}
+
+	cout << max - 1 << endl;//자기자신 하나 제외시킴
+
+}
