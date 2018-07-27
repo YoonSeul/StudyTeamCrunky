@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+int dp[2001][2001] = { 0 };
+int main()
+{
+	int N, M;
+	int arr[2001];
+	scanf("%d", &N);
+	for(int i = 1; i <= N; i++)
+	{
+		scanf("%d", &arr[i]);
+	}
+	scanf("%d", &M);
+	for(int i = 1; i <= N; i++) // S번째 수부터 E번째 수까지 길이가 1인 경우
+	{
+		dp[i][i] = 1;
+	}
+	for(int i = 1; i < N; i++) // S번째 수부터 E번째 수까지 길이가 2인 경우
+	{
+		if(arr[i] == arr[i + 1])
+		{
+			dp[i][i + 1] = 1;
+		}
+	}
+	for(int k = 3; k <= N; k++) // S번째 수부터 E번째 수까지 길이가 3 이상인 경우
+	{
+		for(int i = 1; i <= N - k + 1; i++)
+		{
+			int j = i + k - 1;
+			if(arr[i] == arr[j] && dp[i + 1][j - 1] == 1) // 앞 뒤가 같다면, 앞 뒤 사이에 있는 수들이 팰린드롬인 경우
+								                                    // 앞 뒤가 같다면, 앞 뒤 사이에 있는 수들이 팰린드롬이면, 이 수들은 팰린드롬이 되기 때문이다.
+			{
+				dp[i][j] = 1;
+			}
+		}
+	}
+	for(int i = 1; i <= M; i++)
+	{
+		int S, E;
+		scanf("%d %d", &S, &E);
+		printf("%d\n", dp[S][E]);
+	}
+	return 0;
+}
