@@ -1,0 +1,30 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int n, k;
+	int x = 1000000000;
+	cin >> n >> k;
+	long int **a = new long int*[k];
+	for (int i = 0; i < k; i++) {
+		a[i] = new long int[n + 1];
+	}
+	for (int i = 0; i <= n; i++) {
+		a[0][i] = 1;
+	}
+	for (int i = 1; i < k; i++) {
+		for (int j = 0; j <= n; j++) {
+			a[i][j] = 0;
+			for (int m = 0; m <= j; m++) {
+				a[i][j] += a[i - 1][m];
+				a[i][j] %= x;
+			}
+		}
+	}
+	cout << a[k - 1][n];
+	for (int i = 0; i < k; i++) {
+		delete[] a[i];
+	}
+	delete[] a;
+}
