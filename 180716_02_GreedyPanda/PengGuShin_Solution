@@ -1,0 +1,55 @@
+#include <iostream>
+
+using namespace std;
+
+int N;
+int d[501][501] = { 0 };
+int m[501][501] = { 0 };
+int X[4] = { 0,0,-1,1 };
+int Y[4] = { 1,-1,0,0 };
+int k = 0;
+
+void search(int y, int x) {
+	int nX, nY;
+	int v = 0;
+	for (int i = 0; i<4; i++)
+	{
+		nX = x + X[i];
+		nY = y + Y[i];
+
+		if (nX >= N || nX < 0 || nY >= N || nY < 0) {
+			continue;
+		}
+		if (m[nY][nX] < m[y][x])
+		{
+			if (d[nY][nX] == 0) {
+				search(nY, nX);
+			}
+			if (v < d[nY][nX]) {
+				v = d[nY][nX];
+			}
+		}
+	}
+	d[y][x] = v + 1;
+	if (k < d[y][x]) {
+		k = d[y][x];
+	}
+}
+
+int main(void)
+{
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> m[i][j];
+		}
+	}
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++)
+		{
+			if (d[i][j] == 0)
+				search(i, j);
+		}
+	}
+	cout << k;
+}
