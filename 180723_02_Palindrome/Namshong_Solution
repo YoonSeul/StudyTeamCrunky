@@ -1,0 +1,50 @@
+import java.util.*;
+import java.io.*;
+
+public class palindrome {
+	static int N;
+	static int[] Arr;
+	static int M;
+	static int[][] dp;
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+		N = Integer.parseInt(in.readLine());
+		
+		Arr = new int[N+1];
+		dp = new int[N+1][N+1];
+		StringTokenizer st = new StringTokenizer(in.readLine());
+		int i = 1;
+		while(st.hasMoreTokens()) {
+			Arr[i++] = Integer.parseInt(st.nextToken());
+		}
+		
+		M = Integer.parseInt(in.readLine());
+		
+		int S,E;
+		int j,k;
+		for(i=0; i<M; i++) {
+			st = new StringTokenizer(in.readLine());
+			S = Integer.parseInt(st.nextToken());
+			E = Integer.parseInt(st.nextToken());
+			
+			if(E-S+1 == 1) {
+				dp[S][E] = 1;
+			}else {
+				j = S;
+				k = E;
+				while(Arr[j] == Arr[k]) {
+					if(k-j<=1 || dp[j+1][k-1]==1) {
+						dp[S][E] = 1;
+						break;
+					}
+					j++; k--;
+				}
+			}
+			
+			out.write(dp[S][E]+"\n");
+		}
+		out.flush();
+		out.close();
+	}
+}
