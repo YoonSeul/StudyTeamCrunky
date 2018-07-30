@@ -1,0 +1,22 @@
+import java.util.*;
+import java.io.*;
+
+public class Tile01 {
+	static int N;
+	static int[] tile;
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(in.readLine());
+		
+		tile = new int[N+1];
+		for(int i=1; i<=N; i++) {
+			if(i==1 || i==2) {
+				tile[i] = i;
+			}else {
+				tile[i] = (tile[i-1] + tile[i-2])%15746;
+			}
+		}
+		
+		System.out.println(tile[N]);
+	}
+}
