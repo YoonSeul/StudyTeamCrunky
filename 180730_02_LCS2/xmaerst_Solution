@@ -3,7 +3,7 @@
 #define max(a, b) (a > b ? a : b)
 
 int dp[1001][1001] = { 0 }; // int main() 안에서 char str2[1001] = { 0 }; 다음으로 int dp[1001][1001] = { 0 }; 을 넣으면 백준에서는 맞고, 비주얼에서는 에러 뜸(ConsoleApplication파일번호.exe의 작동이 중지되었습니다.)
-			    // int main() 밖에서 #define max(a, b) (a > b ? a : b) 다음다음으로 int dp[1001][1001] = { 0 }; 을 넣으면 백준에서도 맞고, 비주얼에서도 맞음
+			     // int main() 밖에서 #define max(a, b) (a > b ? a : b) 다음다음으로 int dp[1001][1001] = { 0 }; 을 넣으면 백준에서도 맞고, 비주얼에서도 맞음
 int main()
 {
 	char str1[1001] = { 0 };
