@@ -1,0 +1,68 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+string reverse(const string &input)
+{
+	string temp(input);
+	reverse(temp.begin(), temp.end());
+	return temp;
+}
+
+int main() {
+	string str1, str2, x;
+	cin >> str1 >> str2;
+	const char *c1, *c2;
+	c1 = str1.c_str();
+	c2 = str2.c_str();
+	int i1 = str1.length();
+	int i2 = str2.length();
+	int **m = new int*[i1 + 1];
+	int k = 0;
+	for (int i = 0; i <= i1; i++) {
+		m[i] = new int[i2 + 1];
+		m[i][0] = 0;
+	}
+	for (int i = 0; i <= i2; i++) {
+		m[0][i] = 0;
+	}
+	for (int i = 1; i <= i1; i++) {
+		for (int j = 1; j <= i2; j++) {
+			if (c1[i - 1] == c2[j - 1]) {
+				m[i][j] = m[i - 1][j - 1] + 1;
+			}
+			else {
+				m[i][j] = max(m[i - 1][j], m[i][j - 1]);
+			}
+			if (k <= m[i][j]) {
+				k = m[i][j];
+			}
+		}
+	}
+	x = "";
+	while (m[i1][i2] != 0)
+	{
+		if (m[i1][i2] == m[i1][i2 - 1])
+		{
+			i2--;
+		}
+		else if (m[i1][i2] == m[i1 - 1][i2])
+		{
+			i1--;
+		}
+		else
+		{
+			x += str1[i1 - 1];
+			i1--; 
+			i2--;
+		}
+	}
+	x = reverse(x);
+	cout << k << endl << x;
+	for (int i = 0; i < i1; i++) {
+		delete[] m[i];
+	}
+	delete[] m, c1, c2;
+}
