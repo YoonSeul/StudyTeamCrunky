@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.StringTokenizer;
+
+public class DownHill {
+	static int M,N;
+	static int[][] H;
+	static int[][] dp;
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(in.readLine());
+		M = Integer.parseInt(st.nextToken());
+		N = Integer.parseInt(st.nextToken());
+		H = new int[M][N];
+		dp = new int[M][N];
+		
+		int i,j;
+		for(i=0; i<M; i++) {
+			j = 0;
+			st = new StringTokenizer(in.readLine());
+			while(st.hasMoreTokens()) {
+				H[i][j] = Integer.parseInt(st.nextToken());
+				dp[i][j++] = -1;
+			}
+		}
+		
+		System.out.println(down(0,0));
+	}
+	
+	public static int down(int x, int y) {
+		int []moveX = {0, 1, 0, -1};
+		int []moveY = {1, 0, -1, 0};
+		
+		if(x==M-1 && y==N-1) return 1;
+		if(dp[x][y] != -1) return dp[x][y];
+		
+		dp[x][y] = 0;
+		for(int i=0; i<4; i++) {
+			int nextX = x + moveX[i];
+			int nextY = y + moveY[i];
+			
+			if(nextX >= 0 && nextX < M && nextY >= 0 && nextY < N && H[x][y] > H[nextX][nextY]) {
+				dp[x][y] += down(nextX,nextY);
+			}
+		}
+		return dp[x][y];
+	}
+}
