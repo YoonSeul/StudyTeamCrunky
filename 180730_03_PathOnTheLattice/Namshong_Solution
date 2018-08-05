@@ -1,0 +1,42 @@
+import java.util.*;
+import java.io.*;
+
+public class RouteOnGrid {
+	static int x1,y1;
+	static int x2,y2;
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(in.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		int K = Integer.parseInt(st.nextToken());
+			
+		int[][] dp = new int[N+1][M+1];
+		for(int i=1; i<=N; i++) {
+			for(int j=1; j<=M; j++) {
+				if(i==1 || j==1) {
+					dp[i][j] = 1;
+				}else {
+					dp[i][j] = dp[i-1][j] + dp[i][j-1];
+				}
+			}
+		}
+		
+		if(K==0) {
+			System.out.println(dp[N][M]);
+		}else {
+			if(K%M != 0) {
+				x1 = K/M + 1;
+				y1 = K%M;
+			}else {
+				x1 = K/M;
+				y1 = M;
+			}
+			
+			x2 = N-x1+1;
+			y2 = M-y1+1;
+			
+			System.out.println(dp[x1][y1]*dp[x2][y2]);
+		}
+	}
+}
