@@ -1,0 +1,57 @@
+import java.util.*;
+import java.io.*;
+
+public class GreedyPanda {
+	static int n, max;
+	static int[][] bamboo;
+	static int[][] dp;
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		n = Integer.parseInt(in.readLine());
+		bamboo = new int[n][n];
+		dp = new int[n][n];
+		
+		int i,j;
+		for(i=0; i<n; i++) {
+			j=0;
+			StringTokenizer st = new StringTokenizer(in.readLine());
+			while(st.hasMoreTokens()) {
+				bamboo[i][j++] = Integer.parseInt(st.nextToken());
+			}
+		}
+		
+		max = 1;
+		for(i=0; i<n; i++) {
+			for(j=0; j<n; j++) {
+				if(dp[i][j] == 0) {
+					eat(i,j);
+				}
+			}
+		}
+		
+		System.out.println(max);
+	}
+	
+	public static int eat(int x, int y) {
+		int []moveX = {0, 1, 0, -1};
+		int []moveY = {1, 0, -1, 0};
+		
+		if(dp[x][y] != 0) return dp[x][y];
+		
+		dp[x][y] = 1;
+		for(int i=0; i<4; i++) {
+			int nextX = x + moveX[i];
+			int nextY = y + moveY[i];
+			
+			if(nextX>=0 && nextX<n && nextY>=0 && nextY <n && bamboo[x][y] < bamboo[nextX][nextY]) {
+				eat(nextX, nextY);
+				dp[x][y] = Math.max(dp[nextX][nextY]+1,	dp[x][y]); 
+				if(max < dp[x][y]) {
+					max = dp[x][y];
+				}
+			}
+		}
+		
+		return max;
+	}
+}
