@@ -1,0 +1,30 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+	int n, m;
+	cin >> n;
+	int *a = new int[n];
+	int *dp = new int[n];
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
+	}
+	m = 0;
+	dp[0] = 0;
+	for (int i = 0; i < n; i++) {
+		dp[i] = 1;
+		for (int j = 0; j < i; j++) {
+			if (a[i] > a[j] && dp[j] + 1 > dp[i]) {
+				dp[i] = dp[j] + 1;
+			}
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		m = max(m, dp[i]);
+	}
+	m = n - m;
+	cout << m;
+	delete[] a;
+}
