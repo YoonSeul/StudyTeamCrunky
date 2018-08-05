@@ -1,0 +1,41 @@
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main(){
+	int n, m;
+	cin >> n >> m;
+
+	// 배열 동적할당
+	int** A = new int*[n];
+	int** rec = new int*[n];
+
+	char s[1000];
+	for (int i = 0; i < n; i++){
+		A[i] = new int[m];
+		rec[i] = new int[m];
+		cin >> s;
+		for (int j = 0; j < m; j++){
+			A[i][j] = s[j] - '0';
+			rec[i][j] = 0;
+		}
+	}
+	
+	int square = 0;
+	for (int i = 0; i < n; i++){
+		for (int j = 0; j < m; j++){
+			if (i == 0 || j == 0){
+				rec[i][j] = A[i][j];
+			}
+			else if (A[i][j] == 1){
+				rec[i][j] = min(min(rec[i - 1][j], rec[i][j - 1]), rec[i - 1][j - 1]) + 1;
+			}
+			square = max(square, rec[i][j]);
+		}
+	}
+
+	cout << square*square << endl;
+	delete rec, A;
+	return 0;
+}
