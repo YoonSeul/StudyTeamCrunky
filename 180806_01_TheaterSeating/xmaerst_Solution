@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int dp[41] = { 0 };
+int main()
+{
+	int N, M, VIP;
+	scanf("%d", &N);
+	scanf("%d", &M);
+	dp[0] = 1; dp[1] = 1; dp[2] = 2;
+	for(int i = 3; i <= N; i++)
+	{
+		dp[i] = dp[i - 2] + dp[i - 1];
+	}
+	int cur = 0;
+	int num = 1;
+	for(int i = 1; i <= M; i++)
+	{
+		scanf("%d", &VIP);
+		num *= dp[VIP - cur - 1];
+		cur = VIP;
+	}
+	num *= dp[N - cur];
+	printf("%d\n", num);
+	return 0;
+}
