@@ -1,0 +1,45 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+	int n, s, m, k;
+	cin >> n >> s >> m;
+	bool **d = new bool *[n + 1];
+	int *a = new int[n + 1];
+	for (int i = 1; i <= n; i++) {
+		cin >> a[i];
+	}
+	for (int i = 0; i <= n; i++) {
+		d[i] = new bool[m + 1];
+		for (int j = 0; j <= m; j++) {
+			d[i][j] = false;
+		}
+	}
+	d[0][s] = true;
+	for (int i = 1; i <= n; i++) { 
+		for (int j = 0; j <= m; j++) {
+			if (!d[i - 1][j]) {
+				continue;
+			} 
+			if (j - a[i] >= 0) { 
+				d[i][j - a[i]] = true; 
+			} 
+			if (j + a[i] <= m) {
+				d[i][j + a[i]] = true;
+			}
+		}
+	}
+	k = -1;
+	for (int i = 0; i <= m; i++) {
+		if (d[n][i]) {
+			k = max(k, i);
+		}
+	}
+	cout << k;
+	for (int i = 0; i <= n; i++) {
+		delete[] d[i];
+	}
+	delete[] d, a;
+}
