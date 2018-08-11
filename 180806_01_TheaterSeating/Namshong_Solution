@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+int main(){
+	int N, M;
+	cin >> N >> M;
+
+	int count[41];
+	int num[41];
+	count[0] = 1;
+	for (int i = 1; i <= 40; i++){
+		if (i == 1 || i == 2){
+			count[i] = i;
+		}
+		else{
+			count[i] = count[i - 1] + count[i - 2];
+		}
+	}
+
+	int answer = 1;
+	for (int i = 0; i <= M; i++){
+		if (i < M ){
+			cin >> num[i];
+			if (i == 0){
+				answer *= count[num[i] - 1];
+			}
+			else{
+				answer *= count[num[i] - num[i - 1] - 1];
+			}
+		}
+		else{
+			answer *= count[N - num[i - 1]];
+		}
+	}
+
+	cout << answer << endl;
+	return 0;
+}
