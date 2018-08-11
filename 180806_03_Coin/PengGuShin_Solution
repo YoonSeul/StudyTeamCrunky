@@ -1,0 +1,28 @@
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+int c[21] = { 0, };
+int d[10001] = { 0, };
+
+int main() {
+	int t, n, k;
+	cin >> t;
+	for (int z = 0; z < t; z++) {
+		cin >> n;
+		for (int i = 0; i < n; i++) {
+			cin >> c[i];
+		}
+		cin >> k;
+		d[0] = 1;
+		for (int i = 0; i < n; i++) {
+			d[c[i]]++;
+			for (int j = c[i] + 1; j <= k; j++) {
+				d[j] = d[j] + d[j - c[i]];
+			}
+		}
+		cout << d[k] << endl;
+		memset(d, 0, sizeof(int) * 10001);
+	}
+}
