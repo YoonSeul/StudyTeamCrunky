@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <string.h>
+#define max(a, b) (a > b ? a : b)
+
+int dp[4001][4001] = { 0 };
+int main()
+{
+	char s1[4001];
+	char s2[4001];
+	scanf("%s", s1);
+	scanf("%s", s2);
+	int t = 0;
+	for(int i = 1; i <= strlen(s1); i++)
+	{
+		for(int j = 1; j <= strlen(s2); j++)
+		{
+			if(s1[i - 1] == s2[j - 1])
+			{
+				if(i == 0 || j == 0)
+				{
+					dp[i][j] = 1;
+				}
+				else
+				{
+					dp[i][j] = dp[i - 1][j - 1] + 1;
+				}
+				t = max(t, dp[i][j]);
+			}
+		}
+	}
+	printf("%d\n", t);
+	return 0;
+}
