@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+long long dp[101][21] = { 0 };
+int main()
+{
+	int N;
+	int num[101];
+	scanf("%d", &N);
+	for(int i = 1; i <= N; i++)
+	{
+		scanf("%d", &num[i]);
+	}
+	dp[1][num[1]] = 1;
+	for(int i = 1; i <= N - 1; i++)
+	{
+		for(int j = 0; j <= 20 - num[i]; j++)
+		{
+			dp[i][j] += dp[i - 1][j + num[i]];
+		}
+		for(int j = num[i]; j <= 20; j++)
+		{
+			dp[i][j] += dp[i - 1][j - num[i]];
+		}
+	}
+	printf("%lld\n", dp[N - 1][num[N]]);
+	return 0;
+}
