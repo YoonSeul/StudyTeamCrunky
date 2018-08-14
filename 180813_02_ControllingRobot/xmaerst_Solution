@@ -1,0 +1,54 @@
+#include <stdio.h>
+#define max(a, b) (a > b ? a : b)
+
+int dp[1001][1001] = { 0 };
+int map[1001][1001] = { 0 };
+int mars[2][1001] = { 0 };
+int main()
+{
+	int N, M;
+	scanf("%d %d", &N, &M);
+	for(int i = 1; i <= N; i++)
+	{
+		for(int j = 1; j <= M; j++)
+		{
+			scanf("%d", &map[i][j]);
+		}
+	}
+	dp[1][1] = map[1][1];
+	for(int j = 2; j <= M; j++) // 첫째 줄은 따로 계산
+	{
+		dp[1][j] = map[1][j] + dp[1][j - 1];
+	}
+	for(int i = 2; i <= N; i++) // 첫째 줄은 아까 따로 계산했으니 둘째 줄부터 계산 시작
+	{
+		for(int j = 1; j <= M; j++) // 왼쪽->오른쪽 경우
+		{
+			if(j == 1) // 왼쪽 시작 값일 때
+			{
+				mars[0][j] = dp[i - 1][j] + map[i][j];
+			}
+			else
+			{
+				mars[0][j] = max(mars[0][j - 1], dp[i - 1][j]) + map[i][j]; // 왼쪽->오른쪽 vs 위쪽->아래쪽 중 큰 값 비교
+			}
+		}
+		for(int j = M; j >= 1; j--) // 오른쪽->왼쪽 경우
+		{
+			if(j == M) // 오른쪽 끝(의) 값일 때
+			{
+				mars[1][j] = dp[i - 1][j] + map[i][j];
+			}
+			else
+			{
+				mars[1][j] = max(mars[1][j + 1], dp[i - 1][j]) + map[i][j]; // 오른쪽->왼쪽 vs 위쪽->아래쪽 중 큰 값 비교
+			}
+		}
+		for(int j = 1; j <= M; j++) // 최종 대소 비교 후 최댓값 선정
+		{
+			dp[i][j] = max(mars[0][j], mars[1][j]);
+		}
+	}
+	printf("%d\n", dp[N][M]);
+	return 0;
+}
