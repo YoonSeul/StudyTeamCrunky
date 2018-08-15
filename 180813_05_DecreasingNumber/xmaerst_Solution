@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+long long X[1000001] = { 0 };
+int main()
+{
+	int N;
+	int count = 0, flag = 0;
+	int index = 0;
+	scanf("%d", &N);
+	for(int i = 1; i <= 1000000; i++)
+	{
+		X[i] = -1;
+	}
+	for(int i = 0; i < 10; i++)
+	{
+		X[count++] = i;
+	}
+	for(int i = 0; i < 1000000; i++)
+	{
+		for(int j = 0; j < X[index] % 10; j++)
+		{
+			X[count++] = X[index] * 10 + j;
+			if(count > 1000001)
+			{
+				flag = 1;
+				break;
+			}
+		}
+		if(flag == 1)
+		{
+			break;
+		}
+		index++;
+	}
+	printf("%lld\n", X[N]);
+	return 0;
+}
