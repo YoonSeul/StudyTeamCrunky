@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <string.h>
+#define min(a, b) (a < b ? a : b)
+
+int dp[2501][2501] = { 0 };
+int main()
+{
+	int N;
+	char arr[2501];
+	int str[2501];
+	scanf("%s", arr + 1);
+	N = strlen(arr + 1);
+	for(int i = 1; i <= N; i++) // 길이가 1인 경우 팰린드롬 조사
+	{
+		dp[i][i] = 1;
+	}
+	for(int i = 1; i < N; i++) // 길이가 2인 경우 팰린드롬 조사
+	{
+		if(arr[i] == arr[i + 1])
+		{
+			dp[i][i + 1] = 1;
+		}
+	}
+	for(int k = 3; k <= N; k++) // 길이가 3 이상인 경우 팰린드롬 조사, k는 길이를 뜻하는 것
+	{
+		for(int i = 1; i <= N - k + 1; i++)
+		{
+			int j = i + k - 1;
+			if(arr[i] == arr[j] && dp[i + 1][j - 1] == 1) // 앞 뒤가 같다면, 앞 뒤 사이에 있는 수들이 팰린드롬인 경우
+								      // 앞 뒤가 같다면, 앞 뒤 사이에 있는 수들이 팰린드롬이면, 이 수들은 팰린드롬이 되기 때문이다.
+			{
+				dp[i][j] = 1;
+			}
+		}
+	}
+	// 팰린드롬 분할의 개수의 최소값을 찾기 위한 dp
+	str[0] = 0;
+	for(int i = 1; i <= N; i++)
+	{
+		str[i] = i;
+		for(int j = 1; j <= i; j++)
+		{
+			if(dp[j][i])
+			{
+				str[i] = min(str[i], str[j - 1] + 1);
+			}
+		}
+	}
+	printf("%d\n", str[N]);
+	return 0;
+}
