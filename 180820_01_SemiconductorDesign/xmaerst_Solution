@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int semiconductor[40001] = { 0 }; // semiconductor는 반도체를 뜻하는 것
+int port[40001] = { 0 }; // port는 포트를 뜻하는 것
+int n;
+int main()
+{
+	scanf("%d", &n);
+	for(int i = 1; i <= n; i++)
+	{
+		scanf("%d", &semiconductor[i]);
+	}
+	for(int i = 1; i <= n; i++)
+	{
+		port[semiconductor[i]]++;
+		for(int j = semiconductor[i] + 1; j <= n; j++)
+		{
+			if(port[j] < port[j - 1])
+			{
+				port[j] = port[j - 1];
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	printf("%d\n", port[n]);
+	return 0;
+}
