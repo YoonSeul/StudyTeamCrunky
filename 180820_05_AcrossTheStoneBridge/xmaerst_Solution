@@ -5,7 +5,7 @@ int dp[2][101][21] = { 0 };
 char bridge[2][101]; // bridge는 다리를 뜻하는 것
 char scroll[21]; // scroll은 마법의 두루마리를 뜻하는 것
 int ring(int col, int row, int idx) // ring은 절대반지를 얻기 위하여 반지원정대가 마법의 두루마리에 적힌 문자열의 순서대로 다리를 건너갈 수 있는 방법의 수를 출력하는 것을 뜻하는 것
-				    // col은 행, row는 열, idx는 인덱스를 뜻하는 것
+				     // col은 행, row는 열, idx는 인덱스를 뜻하는 것
 {
 	if(idx == strlen(scroll)) return 1;
 	if(dp[col][row][idx] != -1) return dp[col][row][idx];
